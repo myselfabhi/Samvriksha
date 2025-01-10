@@ -1,0 +1,13 @@
+.navbar ul{
+    display: flex;
+    flex-direction: row;
+    color: black;
+    justify-content: center;
+    gap: 20px;
+    list-style: none;
+    font-weight: bold;
+    
+    }
+    .navbar ul li{
+        cursor: pointer;
+    }
