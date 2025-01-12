@@ -4,7 +4,7 @@ import Navbar from '../../components/Navbar/Navbar'
 
 const Home = () => {
   return (
-    <div className={styles.homeContainer}>
+    <div style={{backgroundColor:'cornsilk',height:'70vh'}} className={styles.homeContainer}>
         Home
     </div>
   )

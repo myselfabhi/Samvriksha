@@ -5,5 +5,27 @@
   .navSection{
     background-color: white;
     height: 5vh;
-    align-content: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 60px;
+}
+.logo{
+  flex: 1;
+  text-align: center;
+}
+.navItems{
+  flex: 1;
+  text-align: start;
+}
+.cartButton{
+  flex: 1;
+  text-align: end;
+}
+.cartButton div{
+  cursor: pointer;
+  display: inline-block;
+}
+.cartButton div:hover{
+  color: green;
 }

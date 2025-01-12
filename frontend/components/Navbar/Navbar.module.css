@@ -2,12 +2,43 @@
     display: flex;
     flex-direction: row;
     color: black;
-    justify-content: center;
+    /* justify-content: center; */
     gap: 20px;
     list-style: none;
     font-weight: bold;
     
     }
-    .navbar ul li{
-        cursor: pointer;
-    }
+
+.navbar ul li{
+    cursor: pointer;
+}
+.navbar ul li:hover{
+    color: green;
+}
+
+
+.navbar ul li .dropdown {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    /* padding: 15px 10px; */
+}
+
+.navbar ul li:hover .dropdown {
+    display: block;
+}
+
+.navbar ul li .dropdown li {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    
+}
+
+.navbar ul li .dropdown li:hover {
+    background-color: #00ED64;
+}
