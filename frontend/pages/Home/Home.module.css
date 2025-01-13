@@ -3,3 +3,47 @@
     height: 5vh;
     align-content: center;
 }
+.heroBox{
+    background-image: url('./heroBg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed ;
+    padding: 60px;
+    height: 85vh;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;;
+}
+
+.heroContent{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+.heroTitle{
+    display: flex;
+    flex-direction: column;
+    font-size: 3rem;
+    font-weight: 700;
+    color: black;
+    margin-bottom: 20px;
+}
+.heroText{
+    display: flex;
+    flex-direction: column;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: black;
+    margin-bottom: 20px;
+}
+.heroButton{
+    align-self: flex-start;
+    font-size: medium;
+    font-weight: 600;
+    color: black;
+    background-color: #00ED64;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
