@@ -9,20 +9,20 @@ const Navbar = () => {
     <div className={styles.navbar}>
         <ul>
             <li onClick={() => navigate('/')}>Home</li>
-            <li><span>Farming</span>
+            <li><span>Sustainable Farming</span>
                 <ul className={styles.dropdown}>
                     <li onClick={() => navigate('/products')}>Indoor Wish Tree</li>
                     <li onClick={() => navigate('/products')}>Outdoor Wish Tree</li>
                     <li onClick={() => navigate('/products')}>Balcony Bageecha</li>
                 </ul></li>
             <li>
-                <span>Decor</span>
+                <span>Sustainable Decor</span>
                 <ul className={styles.dropdown}>
                     <li onClick={() => navigate('/products')}>Bookshelf</li>
                     <li onClick={() => navigate('/products')}>Samjyoti Lamo</li>
                 </ul>
             </li>
-            <li><span>Gifting</span>
+            <li><span>Sustainable Gifting</span>
                 <ul className={styles.dropdown}>
                     <li onClick={() => navigate('/products')}>Resin Art</li>
                     <li onClick={() => navigate('/products')}>Resin and Light</li>

@@ -14,11 +14,12 @@
 }
 .logo{
   flex: 1;
-  text-align: center;
+  text-align: start;
 }
 .navItems{
-  flex: 1;
-  text-align: start;
+  flex: 2;
+  display: flex;
+  justify-content: center;
 }
 .cartButton{
   flex: 1;

@@ -13,11 +13,11 @@ function App() {
   return (
   <div className='app'>
     <div className='navSection'>
-      <div className='navItems'>
-      <Navbar />
-      </div>
       <div className='logo'>
       <img src='./logo.PNG' width={150} height={36} />
+      </div>
+      <div className='navItems'>
+      <Navbar />
       </div>
       <div className='cartButton'>
       <div><TiShoppingCart size={30}/></div>

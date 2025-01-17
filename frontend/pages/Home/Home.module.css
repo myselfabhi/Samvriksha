@@ -47,3 +47,99 @@
     border-radius: 5px;
     cursor: pointer;
 }
+.discoverBox{
+    display: flex;
+    flex-direction: column;
+    background-image: url('./exploreBg.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+    /* flex-direction: row; */
+    /* flex-wrap: wrap; */
+    /* gap: 60px; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    padding: 60px;
+    background-color: #ffffff;
+    min-height: 70vh;
+}
+.discoverTitle{
+    /* display: flex;
+    flex-direction: column; */
+    font-size: 3rem;
+    font-weight: 700;
+    color: black;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.cardContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 60px;
+    justify-content: center;
+    align-items: center;
+}
+.infoBox{
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    padding: 60px;
+    height: 50vh;
+    gap: 60px;
+}
+.infoContent{
+    display: flex;
+    flex-direction: column;
+    /* gap: 30px; */
+    justify-content: space-between;
+    flex: 1;
+}
+.topInfo{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.infoTitle{
+    font-size: 3rem;
+    font-weight: 800;
+    color: black;
+}
+.infoText{
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: black;
+}
+.bottomInfo{
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+.addInfo{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 50%;
+}
+.addInfoTitle{
+    font-weight: 700;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.addInfoText{
+    font-weight: 400;
+    color: black;
+    text-align: justify;
+}
+.infoImage{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    /* background-image: url('./infoBg.jpg'); */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
