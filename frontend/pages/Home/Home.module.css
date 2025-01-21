@@ -143,3 +143,122 @@
     background-repeat: no-repeat;
     background-position: center;
 }
+/* .testimonialBox{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 60px;
+    height: 40vh;
+    gap: 40px;
+}
+.testimonialTitle{
+    font-size: 3rem;
+    font-weight: 800;
+    color: black;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.testimonialContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+.feedbackText{
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: black;
+    text-align: center;
+}
+.feedbackAuthorDetails{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+}
+.feedbackAuthorDetails img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+.feedbackAuthor{
+    font-size: 1 rem;
+    font-weight: 700;
+    color: black;
+    text-align: center;
+} */
+
+.footerBox{
+    display: flex;
+    flex-direction: column;
+    background-color: green;
+    padding: 60px;
+    color: white;
+    min-height: 30vh;
+    gap: 20px;
+    justify-content: space-around;
+    /* align-items: center; */
+}
+.footerTop{
+    display: flex;
+    flex-direction: row;
+    color: white;
+    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 2px solid white;
+}
+.footerLogo {
+    
+    background-color: green; /* Replace with your footer's background color */
+    /* padding: 20px; */
+    border-radius: 10px; /* Optional */
+  }
+  
+  .blendedLogo {
+    width: 150px;
+    height: 36px;
+    mix-blend-mode: multiply; /* Blend the image with the background */
+    opacity: 1; /* Adjust for a softer blend */
+  }
+  
+  .blendedLogo:hover {
+    opacity: 1; /* Optionally enhance visibility on hover */
+  }
+  
+.companyContent{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.footerSocials{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.socialIcons{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+.socialIcons div{
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    
+}
+.socialIcons div:hover{
+    color: black;
+}
+.footerBottom{
+    display: flex;
+    flex-direction: row;
+    
+    justify-content: center;
+    align-items: center;
+}

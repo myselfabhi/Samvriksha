@@ -1,0 +1,17 @@
+.navbar ul{
+    display: flex;
+    flex-direction: column;
+    /* color: white; */
+    /* justify-content: center; */
+    gap: 10px;
+    list-style: none;
+    font-weight: bold;
+    
+    }
+
+.navbar ul li{
+    cursor: pointer;
+}
+.navbar ul li:hover{
+    color: black;
+}
