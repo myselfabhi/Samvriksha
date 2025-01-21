@@ -20,7 +20,7 @@ function App() {
       <Navbar />
       </div>
       <div className='cartButton'>
-      <div><TiShoppingCart size={30}/></div>
+      <div style={{position:'relative'}}><TiShoppingCart size={30}/><span style={{position:'absolute',backgroundColor:'red',color:'white',borderRadius:'50%',width:'20px',height:"20px",display:'flex',justifyContent:'center',alignItems:'center',top:'-5px',right:'-5px'}}>2</span></div>
       </div>
     </div>
     <Routes>

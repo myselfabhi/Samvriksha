@@ -1,0 +1,70 @@
+.footerBox{
+    display: flex;
+    flex-direction: column;
+    background-color: green;
+    padding: 60px;
+    color: white;
+    min-height: 30vh;
+    gap: 20px;
+    justify-content: space-around;
+    /* align-items: center; */
+}
+.footerTop{
+    display: flex;
+    flex-direction: row;
+    color: white;
+    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 2px solid white;
+}
+.footerLogo {
+    
+    background-color: green; /* Replace with your footer's background color */
+    /* padding: 20px; */
+    border-radius: 10px; /* Optional */
+  }
+  
+  .blendedLogo {
+    width: 150px;
+    height: 36px;
+    mix-blend-mode: multiply; /* Blend the image with the background */
+    opacity: 1; /* Adjust for a softer blend */
+  }
+  
+  .blendedLogo:hover {
+    opacity: 1; /* Optionally enhance visibility on hover */
+  }
+  
+.companyContent{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.footerSocials{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.socialIcons{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+.socialIcons div{
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    
+}
+.socialIcons div:hover{
+    color: black;
+}
+.footerBottom{
+    display: flex;
+    flex-direction: row;
+    
+    justify-content: center;
+    align-items: center;
+}

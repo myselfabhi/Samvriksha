@@ -5,12 +5,11 @@ import Card from '../../components/Card/Card'
 import { FaWind } from "react-icons/fa";
 import { TbMoodSpark } from "react-icons/tb";
 import { RiFlowerFill } from "react-icons/ri";
-import { FaXTwitter } from "react-icons/fa6";
-import { FaInstagram } from "react-icons/fa";
-import { FaFacebookSquare } from "react-icons/fa";
+
 
 import Testimonial from '../../components/Testimonial/Testimonial';
 import FooterNav from '../../components/FooterNav/FooterNav';
+import Footer from '../../components/Footer/Footer';
 
 
 
@@ -66,45 +65,7 @@ const Home = () => {
     <Testimonial />
     </div>
     <div className={styles.footerBox}>
-      <div className={styles.footerTop}>
-      <div className={styles.companyContent}>
-      <div className={styles.footerLogo}>
-        <img src='./logo.PNG' alt='logo' className={styles.blendedLogo} />
-      </div>
-        <div className={styles.companyAddress}>
-          <h3>Address: </h3>
-          <p>1234 Green Street, Delhi, India</p>
-        </div>
-        <div className={styles.companyContact}>
-          <h3>Contact Us: </h3>
-          <p>Phone: 123-456-7890</p>
-          <p>Email: info@samvriksha.com </p>
-        </div>
-        <div className={styles.footerSocials}>
-          <h3>Follow Us:</h3>
-          <div className={styles.socialIcons}>
-          <div>
-            <FaFacebookSquare />
-          </div>
-          <div>
-            <FaInstagram />
-          </div>
-          <div>
-            <FaXTwitter />
-          </div>
-          </div>
-          </div>
-      </div>
-        <div className={styles.footerNav}>
-          <FooterNav />
-        </div>
-      </div>
-      <div className={styles.footerBottom}>
-        <p>&copy; {new Date().getFullYear()} Samvriksha. All rights reserved.</p>
-      </div>
-        
-          
-
+      <Footer />
     </div>
     
     </div>
