@@ -1,0 +1,19 @@
+.productsContainer {
+display: flex;
+flex-wrap: wrap;
+height: calc(100vh - 5vh - 20px);
+}
+.filterSection{
+    flex: 1;
+    background-color: bisque;
+}
+.productSection{
+    flex: 4;
+    background-color: #f5f5f5;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+    overflow-y: scroll;
+    
+}
