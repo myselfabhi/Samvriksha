@@ -8,7 +8,7 @@ const Navbar = () => {
   return (
     <div className={styles.navbar}>
         <ul>
-            <li onClick={() => navigate('/')}>Home</li>
+            {/* <li onClick={() => navigate('/')}>Home</li>
             <li><span>Sustainable Farming</span>
                 <ul className={styles.dropdown}>
                     <li onClick={() => navigate('/products')}>Indoor Wish Tree</li>
@@ -31,7 +31,12 @@ const Navbar = () => {
             <li><span>Nature-Based Solutions</span>
                 <ul className={styles.dropdown}>
                     <li onClick={() => navigate('/products')}>Nature-Based Air Purifier</li>
-                </ul></li>
+                </ul></li> */}
+            <li onClick={() => navigate('/')}>Home</li>
+            <li onClick={() => navigate('/products', {state: {category:'farming'}})}><span>Sustainable Farming</span></li>
+            <li onClick={() => navigate('/products', {state: {category:'decor'}})}><span>Sustainable Decor</span></li>
+            <li onClick={() => navigate('/products', {state: {category:'gift'}})}><span>Sustainable Gifting</span></li>
+            <li onClick={() => navigate('/products', {state: {category:'nbs'}})}><span>Nature-Based Solutions</span></li>
         </ul>
     </div>
   )
