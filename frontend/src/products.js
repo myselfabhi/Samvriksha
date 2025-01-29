@@ -6,7 +6,7 @@ export const products = [
         description: "Hydroponics is growing plants without soil, using nutrient-rich water and Zero pesticides. Balcony Bageecha is a 100% Customizable hydroponics product allows you to farm in your balconies and rooftops. Hydroponics leads to faster plant growth, 90% water conservation compared to soil farming, minimum maintenance, maximum space utilization and soilless farming keeps your space clean and green.",
         category: ['farming'],
         type: ['outdoor'],
-        img: "./balBag.PNG",
+        img: ["/balBag.PNG" , "/balBag2.PNG", "/balBag3.PNG", "/balBag4.PNG"],
         slug: 'balcony-bageecha',
         colors: ['red', 'blue', 'green', 'yellow'],
     },
@@ -28,7 +28,7 @@ export const products = [
         description: 'A patented product that allows you to grow plants vertically by conserving water and maximizing space efficiency. You can grow up to 42 plants within a square feet of area by using LED grow lights and aeroponic technology. Let your food be in your own hands and with zero pesticides, keep yourself and your family healthy. The aesthetic appeal of the product makes it not just a farming product but also one that can appeal to the audience in your living room.',
         category: ['farming'],
         type: ['indoor'],
-        img: "./kalpTaruIndoor.PNG",
+        img: ["/kalpTaruIndoor.PNG", "/kalpTaruIndoor2.PNG", "/kalpTaruIndoor3.PNG"],
         slug: 'kalp-taru',
         colors: ['red', 'blue', 'brown', 'yellow'],
     },
@@ -39,7 +39,7 @@ export const products = [
         description: 'The outdoor version of Kalp-Taru. It can grow 42 plants however it comes without the LED grow lights and stand. This is ideal for your balconies and gardens.',
         category: ['farming'],
         type: ['outdoor'],
-        img: "./kalpTaruOutdoor.PNG",
+        img: ["/kalpTaruOutdoor.PNG", "/kalpTaruOutdoor2.PNG", "/kalpTaruOutdoor3.PNG"],
         slug: 'kalp-taru-outdoor',
         colors: [],
     },
@@ -50,7 +50,7 @@ export const products = [
         description: 'Grow your favourite vegetables or ornamental plants indoors using LED lights and a vertical Farm stand. Available in multiple sizes and customizable.',
         category: ['farming'],
         type: ['indoor'],
-        img: "./miniFarm.PNG",
+        img: ["/miniFarm.PNG"],
         slug: 'indoor-mini-farm',
     },
     {
@@ -60,7 +60,7 @@ export const products = [
         description: 'Built for the outdoors, plants use sunlight and nutrient rich water circulating in the system to grow. It comes in various sizes which can grow plants from anywhere between 20 to 100.',
         category: ['farming'],
         type: ['outdoor'],
-        img: "./farmStand.PNG",
+        img: ["/farmStand.PNG"],
         slug: 'outdoor-farm-stand',
     },
     {
@@ -70,7 +70,7 @@ export const products = [
         description: 'Attached directly to walls, it grows crop via the nutrient film techniques (NFT) of Hydroponic farming. This design maximizes space efficiency, making it ideal for urban homes, offices, or small apartments. Equipped with builtin LED grow lights it provides an easy-to-maintain, sustainable way to cultivate herbs, vegetables, or ornamental plants indoors.',
         category: ['farming'],
         type: ['indoor'],
-        img: "./verticalFarm.PNG",
+        img: ["/verticalFarm.PNG"],
         slug: 'indoor-vertical-farm',
     },
     {
@@ -80,7 +80,7 @@ export const products = [
         description: 'This exquisite lamp showcases real preserved flowers delicately encased in a crystal-clear oil medium, radiating a soft, natural glow and propagating positivity. The base is adorned with authentic preserved moss, adding an earthy, organic touch to its design. Entirely sustainable and free from plastic, this lamp is a harmonious blend of elegance and eco-conscious craftsmanship.',
         category: ['gift', 'decor'],
         type: ['indoor'],
-        img: "./samjyotiLamp.PNG",
+        img: ["/samjyotiLamp.PNG", "/samjyotiLamp2.PNG", "/samjyotiLamp3.PNG", "/samjyotiLamp4.PNG"],
         slug: 'nature-samjyoti-lamp',
     },
     {
@@ -90,7 +90,7 @@ export const products = [
         description: 'This unique lamp showcases a serene God idol surrounded by real preserved flowers embedded in an oil medium, radiating warmth and positivity when lit. The base, covered in real preserved moss, evokes a natural, tranquil environment, harmoniously blending spirituality and nature. Designed to inspire a positive connection with the environment, this sustainable creation avoids plastic, serving as a reminder of the divine presence in nature and encouraging mindful behavior toward the planet.',
         category: ['gift', 'decor'],
         type: ['indoor'],
-        img: "./ishwarLamp.PNG",
+        img: ["/ishwarLamp.PNG", "/ishwarLamp2.PNG"],
         slug: 'ishwar-samjyoti-lamp',
     },
     {
@@ -100,7 +100,7 @@ export const products = [
         description: 'Enhance your walls with our stunning handmade bamboo god idol wall hanging, illuminated by light propagating a divine glow. Surrounded by real preserved moss, this unique decor piece blends devotion with nature inspiring a positive change in preserving the environment.',
         category: ['decor'],
         type: ['indoor', 'outdoor'],
-        img: "./bambooShakti.PNG",
+        img: ["/bambooShakti.PNG", "/bambooShakti2.PNG"],
         slug: 'bamboo-shakti',
     },
     {
@@ -110,7 +110,7 @@ export const products = [
         description: 'Bring nature indoors with our circular mirror, elegantly bordered with real moss and preserved plants. This product combines functionality with nature, creating a refreshing and eco-friendly statement for your space. Perfect for adding a touch of greenery to any room, it offers a blend of modern design and natural charm.',
         category: ['decor'],
         type: ['indoor'],
-        img: "./greenMirror.PNG",
+        img: ["/greenMirror.PNG"],
         slug: 'green-mirror',
     },
     {
@@ -120,7 +120,7 @@ export const products = [
         description: 'Prakriti Glow combines nature and functionality, featuring live plants arranged vertically at the sides for a vibrant, eco-friendly touch illuminated by 2 spotlights. It includes a lamp crafted with real preserved flowers encased in a bamboo lid and glass jar, emitting a warm glow, and a tempered glass shelf designed to hold decor or utility items. A spotlight at the top enhances the illumination, highlighting the lamp, plants, and items on the shelf, creating a stunning and eco-conscious centerpiece.',
         category: ['decor'],
         type: ['indoor'],
-        img: "./prakritiSpotlight.PNG",
+        img: ["/prakritiSpotlight.PNG"],
         slug: 'prakriti-glow-spotlight',
     },
     {
@@ -130,7 +130,7 @@ export const products = [
         description: 'A variant of Prakrit Glow where instead of spotlights to illuminate plants, LED striplight has been used created a more linear look.',
         category: ['decor'],
         type: ['indoor'],
-        img: "./prakritiStriplight.PNG",
+        img: ["/prakritiStriplight.PNG"],
         slug: 'prakriti-glow-striplight',
     },
     {
@@ -140,7 +140,7 @@ export const products = [
         description: 'This innovative bookshelf integrates live plants vertically within its design, combining storage with greenery to promote sustainable living. Crafted from eco-friendly materials, it enhances air quality while serving as a functional and stylish centerpiece for any space.',
         category: ['decor'],
         type: ['indoor'],
-        img: "./prakritiShelf.PNG",
+        img: ["/prakritiShelf.PNG"],
         slug: 'prakriti-book-shelf',
     },
     {
@@ -150,7 +150,7 @@ export const products = [
         description: 'This customizable product features real preserved moss and other natural plants, bringing a touch of greenery and serenity to any indoor space. Available in a variety of sizes, it is designed to seamlessly fit different interiors while requiring no maintenance. The addition of an LED border enhances its aesthetic appeal, creating a striking blend of nature and modern design.',
         category: ['decor'],
         type: ['indoor'],
-        img: "./mossFrame.PNG",
+        img: ["/mossFrame.PNG", "/mossFrame2.PNG", "/mossFrame3.PNG", "/mossFrame4.PNG"],
         slug: 'moss-frames',
     },
     {
@@ -160,7 +160,7 @@ export const products = [
         description: 'This innovative air purifier combines advanced mechanical carbon filters with the natural power of plant roots through phytoremediation to cleanse the air of pollutants effectively. With an elegant design housing 10 live plants, it seamlessly integrates technology and nature, offering both functionality and aesthetic appeal for healthier indoor environments.',
         category: ['nbs'],
         type: ['indoor'],
-        img: "./vayuPure.PNG",
+        img: ["/vayuPure.PNG"],
         slug: 'vayu-pure',
     },
     {
@@ -170,7 +170,7 @@ export const products = [
         description: 'A living wall system, a vertical structure featuring live plants securely attached to a wall, supported by an automated irrigation and nutrient delivery system. This product can be customized according to the needs of the clients in a comprehensive manner.',
         category: ['nbs'],
         type: ['indoor', 'outdoor'],
-        img: "./vrikshaWall.PNG",
+        img: ["/vrikshaWall.PNG"],
         slug: 'vriksha-wall',
     },
     

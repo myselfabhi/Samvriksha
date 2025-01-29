@@ -228,7 +228,7 @@ const Products = () => {
               value={priceRange[1]}
               onChange={e => setPriceRange([0, +e.target.value])}
             />
-            <span>
+            <span style={{fontFamily:'Franklin Gothic Medium'}}>
               ₹{priceRange[0]} - ₹{priceRange[1]}
             </span>
           </div>
