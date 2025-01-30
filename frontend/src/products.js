@@ -9,6 +9,7 @@ export const products = [
         img: ["/balBag.PNG" , "/balBag2.PNG", "/balBag3.PNG", "/balBag4.PNG"],
         slug: 'balcony-bageecha',
         colors: ['red', 'blue', 'green', 'yellow'],
+        designs: [],
     },
     // {
     //     id: 2,
@@ -31,6 +32,7 @@ export const products = [
         img: ["/kalpTaruIndoor.PNG", "/kalpTaruIndoor2.PNG", "/kalpTaruIndoor3.PNG"],
         slug: 'kalp-taru',
         colors: ['red', 'blue', 'brown', 'yellow'],
+        designs: [],
     },
     {
         id: 4,
@@ -42,6 +44,7 @@ export const products = [
         img: ["/kalpTaruOutdoor.PNG", "/kalpTaruOutdoor2.PNG", "/kalpTaruOutdoor3.PNG"],
         slug: 'kalp-taru-outdoor',
         colors: [],
+        designs: [],
     },
     {
         id: 5,
@@ -52,6 +55,8 @@ export const products = [
         type: ['indoor'],
         img: ["/miniFarm.PNG"],
         slug: 'indoor-mini-farm',
+        colors: [],
+        designs: [],
     },
     {
         id: 6,
@@ -62,6 +67,8 @@ export const products = [
         type: ['outdoor'],
         img: ["/farmStand.PNG"],
         slug: 'outdoor-farm-stand',
+        colors: [],
+        designs: [],
     },
     {
         id: 7,
@@ -72,6 +79,8 @@ export const products = [
         type: ['indoor'],
         img: ["/verticalFarm.PNG"],
         slug: 'indoor-vertical-farm',
+        colors: [],
+        designs: [],
     },
     {
         id: 8,
@@ -82,6 +91,8 @@ export const products = [
         type: ['indoor'],
         img: ["/samjyotiLamp.PNG", "/samjyotiLamp2.PNG", "/samjyotiLamp3.PNG", "/samjyotiLamp4.PNG"],
         slug: 'nature-samjyoti-lamp',
+        colors: [],
+        designs: [],
     },
     {
         id: 9,
@@ -92,6 +103,8 @@ export const products = [
         type: ['indoor'],
         img: ["/ishwarLamp.PNG", "/ishwarLamp2.PNG"],
         slug: 'ishwar-samjyoti-lamp',
+        colors: [],
+        designs: [],
     },
     {
         id: 10,
@@ -102,6 +115,8 @@ export const products = [
         type: ['indoor', 'outdoor'],
         img: ["/bambooShakti.PNG", "/bambooShakti2.PNG"],
         slug: 'bamboo-shakti',
+        colors: [],
+        designs: [],
     },
     {
         id: 11,
@@ -112,6 +127,8 @@ export const products = [
         type: ['indoor'],
         img: ["/greenMirror.PNG"],
         slug: 'green-mirror',
+        colors: [],
+        designs: [],
     },
     {
         id: 12,
@@ -122,6 +139,8 @@ export const products = [
         type: ['indoor'],
         img: ["/prakritiSpotlight.PNG"],
         slug: 'prakriti-glow-spotlight',
+        colors: [],
+        designs: [],
     },
     {
         id: 13,
@@ -132,6 +151,8 @@ export const products = [
         type: ['indoor'],
         img: ["/prakritiStriplight.PNG"],
         slug: 'prakriti-glow-striplight',
+        colors: [],
+        designs: [],
     },
     {
         id: 14,
@@ -142,6 +163,8 @@ export const products = [
         type: ['indoor'],
         img: ["/prakritiShelf.PNG"],
         slug: 'prakriti-book-shelf',
+        colors: [],
+        designs: [],
     },
     {
         id: 15,
@@ -152,6 +175,8 @@ export const products = [
         type: ['indoor'],
         img: ["/mossFrame.PNG", "/mossFrame2.PNG", "/mossFrame3.PNG", "/mossFrame4.PNG"],
         slug: 'moss-frames',
+        colors: [],
+        designs: [],
     },
     {
         id: 16,
@@ -162,6 +187,8 @@ export const products = [
         type: ['indoor'],
         img: ["/vayuPure.PNG"],
         slug: 'vayu-pure',
+        colors: [],
+        designs: [],
     },
     {
         id: 17,
@@ -172,6 +199,8 @@ export const products = [
         type: ['indoor', 'outdoor'],
         img: ["/vrikshaWall.PNG"],
         slug: 'vriksha-wall',
+        colors: [],
+        designs: [],
     },
     
 ]

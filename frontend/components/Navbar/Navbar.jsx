@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './Navbar.module.css'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 
 const Navbar = () => {
@@ -32,11 +32,16 @@ const Navbar = () => {
                 <ul className={styles.dropdown}>
                     <li onClick={() => navigate('/products')}>Nature-Based Air Purifier</li>
                 </ul></li> */}
-            <li onClick={() => navigate('/')}>Home</li>
-            <li onClick={() => navigate('/products', {state: {category:'farming'}})}><span>Sustainable Farming</span></li>
-            <li onClick={() => navigate('/products', {state: {category:'decor'}})}><span>Sustainable Decor</span></li>
+            <Link style={{textDecoration:'none'}} to={'/'}><li>Home</li></Link>
+            <Link style={{textDecoration:'none'}} to={`/products/${'farming'}`}><li><span>Sustainable Farming</span></li></Link>
+            <Link style={{textDecoration:'none'}} to={`/products/${'decor'}`}><li><span>Sustainable Decor</span></li></Link>
+            <Link style={{textDecoration:'none'}} to={`/products/${'gift'}`}><li><span>Sustainable Gifting</span></li></Link>
+            <Link style={{textDecoration:'none'}} to={`/products/${'nbs'}`}><li><span>Nature-Based Solutions</span></li></Link>
+            {/* <li onClick={() => navigate('/')}>Home</li> */}
+            {/* <li onClick={() => navigate('/products', {state: {category:'farming'}})}><span><Link to={`/products/${category}`}>Sustainable Farming</Link></span></li> */}
+            {/* <li onClick={() => navigate('/products', {state: {category:'decor'}})}><span>Sustainable Decor</span></li>
             <li onClick={() => navigate('/products', {state: {category:'gift'}})}><span>Sustainable Gifting</span></li>
-            <li onClick={() => navigate('/products', {state: {category:'nbs'}})}><span>Nature-Based Solutions</span></li>
+            <li onClick={() => navigate('/products', {state: {category:'nbs'}})}><span>Nature-Based Solutions</span></li> */}
         </ul>
     </div>
   )

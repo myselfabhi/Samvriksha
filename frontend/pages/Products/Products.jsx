@@ -114,11 +114,13 @@ import React, { useEffect, useState } from 'react';
 import styles from './Products.module.css';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import { products } from '../../src/products';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 const Products = () => {
   const location = useLocation();
-  const { category } = location.state;
+  // const { category } = location.state;
+  const {category} = useParams()
+
 
   const [priceRange, setPriceRange] = useState([0, 20000]);
   const [selectedType, setSelectedType] = useState('');
@@ -239,14 +241,15 @@ const Products = () => {
           filteredProducts.map(product => (
             <ProductCard
               key={product.id}
-              id={product.id}
-              name={product.name}
-              img={product.img}
-              description={product.description}
-              slug={product.slug}
-              price={product.price}
-              category={product.category}
-              type={product.type}
+              product={product}
+              // id={product.id}
+              // name={product.name}
+              // img={product.img}
+              // description={product.description}
+              // slug={product.slug}
+              // price={product.price}
+              // category={product.category}
+              // type={product.type}
             />
           ))
         ) : (
