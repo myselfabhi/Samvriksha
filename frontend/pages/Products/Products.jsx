@@ -127,6 +127,7 @@ const Products = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [suggestions, setSuggestions] = useState([]);
 
+
   useEffect(() => {
     // Clear search term when navigating to a new category
     setSearchTerm('');

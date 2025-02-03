@@ -21,14 +21,52 @@
   display: flex;
   justify-content: center;
 }
-.cartButton{
+.btnGroup{
   flex: 1;
-  text-align: end;
+  justify-content: flex-end;
+  align-items: center;
+  display: flex;
+  gap: 20px;
 }
-.cartButton div{
+.btnGroup .cartButton{
   cursor: pointer;
   display: inline-block;
 }
-.cartButton div:hover{
+.btnGroup .cartButton:hover{
   color: green;
+}
+.btnGroup .userButton:hover{
+  color: green;
+}
+.btnGroup .loginButton:hover{
+  color: green;
+}
+
+
+
+.dropdown {
+  display: none;
+  position: absolute;
+  right: 5px;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  /* padding: 15px 10px; */
+}
+
+.userButton:hover .dropdown {
+  display: block;
+}
+
+.dropdown li {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  
+}
+
+.dropdown li:hover {
+  background-color: #00ED64;
 }

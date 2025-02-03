@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
+const nodemailer = require("nodemailer");
 const User = require("./models/user");
 const Product = require("./models/product");
 const Order = require("./models/order");
@@ -15,6 +16,16 @@ app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+
+// Email Transporter (Set your SMTP details)
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "your-email@gmail.com",
+    pass: "your-email-password",
+  },
+});
 
 mongoose.connect(process.env.MONGO_URI).then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
@@ -36,15 +47,91 @@ const authenticate = (req, res, next) => {
 };
 
 // User Registration
+// app.post("/api/register", async (req, res) => {
+//   try {
+//     const { name, email, password } = req.body;
+//     const hashedPassword = await bcrypt.hash(password, 10);
+//     const user = new User({ name, email, password: hashedPassword, cart: [] });
+//     await user.save();
+//     res.status(201).json({ message: "User registered" });
+//   } catch (err) {
+//     res.status(500).json({ message: err.message });
+//   }
+// });
+
+// Register Route
 app.post("/api/register", async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { firstName, lastName, email, password, contactNo, address, pincode } = req.body;
+
+    // Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) return res.status(400).json({ message: "Email already registered" });
+
+    // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({ name, email, password: hashedPassword, cart: [] });
-    await user.save();
-    res.status(201).json({ message: "User registered" });
+
+    // Create user (unverified)
+    const newUser = new User({
+      firstName,
+      lastName,
+      email,
+      password: hashedPassword,
+      contactNo,
+      address,
+      pincode,
+      isVerified: false,
+    });
+
+    await newUser.save();
+
+    // Generate verification token
+
+    // const token = jwt.sign({ email }, "your_secret_key", { expiresIn: "1h" });
+
+    // Send email verification link
+
+    // const verifyLink = `http://localhost:3000/verify-email?token=${token}`;
+    // await transporter.sendMail({
+    //   from: '"Your Shop" <your-email@gmail.com>',
+    //   to: email,
+    //   subject: "Email Verification",
+    //   html: `<p>Click the link to verify your email: <a href="${verifyLink}">${verifyLink}</a></p>`,
+    // });
+
+    res.json({ message: "Registration successful. Check your email for verification." });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+});
+
+// Email Verification Route
+app.get("/verify-email", async (req, res) => {
+  try {
+    const { token } = req.query;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    await User.findOneAndUpdate({ email: decoded.email }, { isVerified: true });
+
+    res.json({ message: "Email verified successfully!" });
+  } catch (err) {
+    res.status(400).json({ message: "Invalid or expired token" });
+  }
+});
+
+app.get("/api/me", async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(" ")[1]; // Get token from header
+    if (!token) return res.status(401).json({ message: "Unauthorized" });
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET); // Verify token
+    const user = await User.findById(decoded.id).select("-password"); // Get user without password
+
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    res.json(user);
+  } catch (error) {
+    res.status(401).json({ message: "Invalid token" });
   }
 });
 
