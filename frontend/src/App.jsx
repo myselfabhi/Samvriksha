@@ -75,6 +75,8 @@ function AppContent() {
   const { user, logout } = useAuth();
 
 
+
+
   // Calculate total quantity of items in the cart
   const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
 

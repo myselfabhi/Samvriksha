@@ -1,16 +1,24 @@
-// import React, { useState } from 'react';
+// import React, { useEffect, useState } from 'react';
 // import styles from './Products.module.css';
 // import ProductCard from '../../components/ProductCard/ProductCard';
 // import { products } from '../../src/products';
-// import { useLocation } from 'react-router-dom';
+// import { useLocation, useParams } from 'react-router-dom';
 
 // const Products = () => {
 //   const location = useLocation();
-//   const { category } = location.state;
+//   const {category} = useParams()
+
 
 //   const [priceRange, setPriceRange] = useState([0, 20000]);
 //   const [selectedType, setSelectedType] = useState('');
 //   const [searchTerm, setSearchTerm] = useState('');
+//   const [suggestions, setSuggestions] = useState([]);
+
+
+//   useEffect(() => {
+//     // Clear search term when navigating to a new category
+//     setSearchTerm('');
+//   }, [category]);
 
 //   // Filter products based on category
 //   const filteredByCategory = products.filter(product => product.category.includes(category));
@@ -22,6 +30,26 @@
 //     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
 //     return inPriceRange && matchesType && matchesSearch;
 //   });
+
+//   const handleSearchChange = (e) => {
+//     const value = e.target.value;
+//     setSearchTerm(value);
+
+//     // Generate suggestions based on search term
+//     if (value) {
+//       const matchedSuggestions = filteredByCategory.filter(product =>
+//         product.name.toLowerCase().includes(value.toLowerCase())
+//       );
+//       setSuggestions(matchedSuggestions);
+//     } else {
+//       setSuggestions([]);
+//     }
+//   };
+
+//   const handleSuggestionClick = (name) => {
+//     setSearchTerm(name);
+//     setSuggestions([]);
+//   };
 
 //   const categoryTitle =
 //     category === 'farming'
@@ -49,16 +77,27 @@
 //           <p>{categoryDescription}</p>
 //         </div>
 //         <div className={styles.filterBox}>
-//           {/* <h2>Filter</h2> */}
 //           <div>
 //             <label htmlFor="search">Search:</label>
 //             <input
 //               id="search"
 //               type="text"
 //               value={searchTerm}
-//               onChange={e => setSearchTerm(e.target.value)}
+//               onChange={handleSearchChange}
 //               placeholder="Search products..."
 //             />
+//             {suggestions.length > 0 && (
+//               <ul className={styles.suggestionsList}>
+//                 {suggestions.map((suggestion) => (
+//                   <li
+//                     key={suggestion.id}
+//                     onClick={() => handleSuggestionClick(suggestion.name)}
+//                   >
+//                     {suggestion.name}
+//                   </li>
+//                 ))}
+//               </ul>
+//             )}
 //           </div>
 //           <div>
 //             <label htmlFor="type">Type:</label>
@@ -79,8 +118,8 @@
 //               value={priceRange[1]}
 //               onChange={e => setPriceRange([0, +e.target.value])}
 //             />
-//             <span>
-//             ₹{priceRange[0]} - ₹{priceRange[1]}
+//             <span style={{fontFamily:'Franklin Gothic Medium'}}>
+//               ₹{priceRange[0]} - ₹{priceRange[1]}
 //             </span>
 //           </div>
 //         </div>
@@ -90,18 +129,11 @@
 //           filteredProducts.map(product => (
 //             <ProductCard
 //               key={product.id}
-//               id={product.id}
-//               name={product.name}
-//               img={product.img}
-//               description={product.description}
-//               slug={product.slug}
-//               price={product.price}
-//               category={product.category}
-//               type={product.type}
+//               product={product}
 //             />
 //           ))
 //         ) : (
-//           <p>No products available for this category.</p>
+//           <p style={{display:'flex',flex:'1',justifyContent:'center',alignItems:'center'}}>No products available for this category.</p>
 //         )}
 //       </div>
 //     </div>
@@ -110,23 +142,39 @@
 
 // export default Products;
 
+
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import styles from './Products.module.css';
 import ProductCard from '../../components/ProductCard/ProductCard';
-import { products } from '../../src/products';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const Products = () => {
-  const location = useLocation();
-  // const { category } = location.state;
-  const {category} = useParams()
+  const { category } = useParams();
 
-
+  const [products, setProducts] = useState([]); // Store products from backend
+  const [loading, setLoading] = useState(true); // Loading state
+  const [error, setError] = useState(null); // Error state
   const [priceRange, setPriceRange] = useState([0, 20000]);
   const [selectedType, setSelectedType] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [suggestions, setSuggestions] = useState([]);
 
+  // Fetch products from backend on component mount
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/api/products");
+        setProducts(response.data);
+      } catch (err) {
+        setError("Failed to load products");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   useEffect(() => {
     // Clear search term when navigating to a new category
@@ -231,30 +279,26 @@ const Products = () => {
               value={priceRange[1]}
               onChange={e => setPriceRange([0, +e.target.value])}
             />
-            <span style={{fontFamily:'Franklin Gothic Medium'}}>
+            <span style={{ fontFamily: 'Franklin Gothic Medium' }}>
               ₹{priceRange[0]} - ₹{priceRange[1]}
             </span>
           </div>
         </div>
       </div>
+
       <div className={styles.productSection}>
-        {filteredProducts.length > 0 ? (
+        {loading ? (
+          <p style={{ textAlign: 'center' }}>Loading products...</p>
+        ) : error ? (
+          <p style={{ textAlign: 'center', color: 'red' }}>{error}</p>
+        ) : filteredProducts.length > 0 ? (
           filteredProducts.map(product => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              // id={product.id}
-              // name={product.name}
-              // img={product.img}
-              // description={product.description}
-              // slug={product.slug}
-              // price={product.price}
-              // category={product.category}
-              // type={product.type}
-            />
+            <ProductCard key={product._id} product={product} />
           ))
         ) : (
-          <p style={{display:'flex',flex:'1',justifyContent:'center',alignItems:'center'}}>No products available for this category.</p>
+          <p style={{ display: 'flex', flex: '1', justifyContent: 'center', alignItems: 'center' }}>
+            No products available for this category.
+          </p>
         )}
       </div>
     </div>
@@ -262,5 +306,3 @@ const Products = () => {
 };
 
 export default Products;
-
-

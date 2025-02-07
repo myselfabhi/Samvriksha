@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from './Home.module.css'
 import Navbar from '../../components/Navbar/Navbar'
 import Card from '../../components/Card/Card'
@@ -10,12 +10,18 @@ import { RiFlowerFill } from "react-icons/ri";
 import Testimonial from '../../components/Testimonial/Testimonial';
 import FooterNav from '../../components/FooterNav/FooterNav';
 import Footer from '../../components/Footer/Footer';
+import { useAuth } from '../../src/AuthContext';
+import { useCart } from '../../src/CartContext';
 
 
 
 
 
 const Home = () => {
+  const {user} = useAuth()
+  const {fetchCart, cart} =  useCart()
+
+  
   return (
     <div style={{minHeight:'100vh'}} className={styles.homeContainer}>
         <div className={styles.heroBox}>

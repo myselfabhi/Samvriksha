@@ -2,9 +2,10 @@ import { useState } from "react";
 import { useAuth } from "../../src/AuthContext";
 import styles from "./Login.module.css"; // ✅ Import CSS module
 import { useNavigate } from "react-router-dom";
-
+import { useCart } from "../../src/CartContext";
 const Login = () => {
   const { login } = useAuth();
+  const {fetchCart} = useCart()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -17,6 +18,7 @@ const Login = () => {
     try {
       await login(email, password);
     //   alert("Login successful!");
+      fetchCart()
       setTimeout(() => navigate("/"), 100); 
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");

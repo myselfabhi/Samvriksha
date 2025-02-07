@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import styles from "./Register.module.css"; // ✅ Import CSS module
+import styles from "./Register.module.css"; 
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -67,12 +67,13 @@ const Register = () => {
             onChange={handleChange}
             required
           />
-          {/* <input
+          <input
             className={styles.inputField}
             type="text"
             name="contactNo"
             placeholder="Contact No"
             onChange={handleChange}
+            required
           />
           <input
             className={styles.inputField}
@@ -80,6 +81,7 @@ const Register = () => {
             name="address"
             placeholder="Address"
             onChange={handleChange}
+            required
           />
           <input
             className={styles.inputField}
@@ -87,7 +89,8 @@ const Register = () => {
             name="pincode"
             placeholder="Pincode"
             onChange={handleChange}
-          /> */}
+            required
+          />
           <button className={styles.submitButton} type="submit">
             Register
           </button>

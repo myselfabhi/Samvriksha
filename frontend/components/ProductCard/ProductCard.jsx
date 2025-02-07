@@ -10,6 +10,14 @@ const ProductCard = ({product}) => {
     const [quantity, setQuantity] = useState(1);
     const [selectedColor, setSelectedColor] = useState(product.colors.length>0 ? product.colors[0] : null);
 
+
+    const handleAddToCart = () => {
+        if (!localStorage.getItem("token")) {
+          navigate("/login");
+        } else {
+          addToCart(product, selectedColor, 1); // Pass quantity along with color
+        }
+      };
     
 
   return (
@@ -25,7 +33,7 @@ const ProductCard = ({product}) => {
           </div>
           <div className={styles.cardButtonBox}>
               {product.price != 0 ? <h4 className={styles.cardPrice}>₹{product.price}</h4> : ''}
-              {product.price != 0 ? <button onClick={() => addToCart(product, quantity, selectedColor)} className={styles.cardButton}>Add To Cart</button> : <button className={styles.cardButton}>Coming Soon</button>}
+              {product.price != 0 ? <button onClick={handleAddToCart} className={styles.cardButton}>Add To Cart</button> : <button className={styles.cardButton}>Coming Soon</button>}
           </div>
       </div>
     )
