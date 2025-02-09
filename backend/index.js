@@ -6,6 +6,8 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
+const Razorpay = require("razorpay");
+const crypto = require("crypto");
 const User = require("./models/user");
 const Product = require("./models/product");
 const Order = require("./models/order");
@@ -29,24 +31,16 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+// Initialize Razorpay
+const razorpay = new Razorpay({
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_KEY_SECRET,
+});
+
 mongoose.connect(process.env.MONGO_URI).then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
 
 const SECRET_KEY = process.env.JWT_SECRET;
-
-// Middleware to verify JWT
-// const authenticate = (req, res, next) => {
-//   const token = req.header("Authorization");
-//   if (!token) return res.status(401).json({ message: "Access Denied" });
-
-//   try {
-//     const verified = jwt.verify(token, SECRET_KEY);
-//     req.user = verified;
-//     next();
-//   } catch (err) {
-//     res.status(400).json({ message: "Invalid Token" });
-//   }
-// };
 
 
 
@@ -174,38 +168,6 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
-// // Fetch cart for logged-in user
-// app.get("/api/cart", authenticate, async (req, res) => {
-//   try {
-//     const user = await User.findById(req.user.id).populate("cart.product");
-//     if (!user) {
-//       return res.status(404).json({ message: "User not found" });
-//     }
-//     res.status(200).json({ cart: user.cart });
-//   } catch (error) {
-//     console.error("Error fetching cart:", error);
-//     res.status(500).json({ message: "Server error" });
-//   }
-// });
-
-// // Save cart for logged-in user
-// app.post("/api/cart", authenticate, async (req, res) => {
-//   try {
-//     const user = await User.findById(req.user.id);
-//     if (!user) {
-//       return res.status(404).json({ message: "User not found" });
-//     }
-
-//     user.cart = req.body.cart; // Update the cart
-//     await user.save();
-
-//     res.status(200).json({ message: "Cart saved successfully", cart: user.cart });
-//   } catch (error) {
-//     console.error("Error saving cart:", error);
-//     res.status(500).json({ message: "Server error" });
-//   }
-// });
-
 
 
 // Add to cart
@@ -250,37 +212,6 @@ app.post("/cart/add", authenticate, async (req, res) => {
   }
 });
 
-// app.post("/cart/add", authenticate, async (req, res) => {
-//   try {
-//     const { productId, quantity } = req.body;
-//     const userId = req.user._id; // Extracted from authenticated user
-
-//     // Ensure quantity is a valid number
-//     const validQuantity = isNaN(quantity) || quantity <= 0 ? 1 : quantity;
-
-//     const product = await Product.findById(productId);
-//     if (!product) return res.status(404).json({ message: "Product not found" });
-
-//     let cart = await Cart.findOne({ userId });
-
-//     if (!cart) {
-//       cart = new Cart({ userId, items: [{ productId, quantity: validQuantity, price: product.price }] });
-//     } else {
-//       const itemIndex = cart.items.findIndex(item => item.productId.toString() === productId);
-//       if (itemIndex > -1) {
-//         cart.items[itemIndex].quantity += validQuantity;
-//       } else {
-//         cart.items.push({ productId, quantity: validQuantity, price: product.price });
-//       }
-//     }
-
-//     await cart.save();
-//     res.status(200).json({ message: "Product added to cart", cart });
-//   } catch (error) {
-//     res.status(500).json({ message: "Server error", error });
-//   }
-// });
-
 
 
 // Update quantity
@@ -312,33 +243,6 @@ app.put("/cart/update", authenticate, async (req, res) => {
   }
 });
 
-// app.put("/cart/update", authenticate, async (req, res) => {
-//   try {
-//     const { productId, quantity } = req.body;
-//     const userId = req.user._id;
-
-//     let cart = await Cart.findOne({ userId });
-//     if (!cart) return res.status(404).json({ message: "Cart not found" });
-
-//     const itemIndex = cart.items.findIndex(item => item.productId.toString() === productId);
-//     if (itemIndex > -1) {
-//       if (quantity > 0) {
-//         cart.items[itemIndex].quantity = quantity;
-//       } else {
-//         cart.items.splice(itemIndex, 1); // Remove item if quantity is 0
-//       }
-//     } else {
-//       return res.status(404).json({ message: "Product not found in cart" });
-//     }
-
-//     await cart.save();
-//     res.status(200).json({ message: "Cart updated", cart });
-//   } catch (error) {
-//     res.status(500).json({ message: "Server error", error });
-//   }
-// });
-
-
 
 
 // Remove product from cart
@@ -361,22 +265,6 @@ app.delete("/cart/remove", authenticate, async (req, res) => {
   }
 });
 
-// app.delete("/cart/remove", authenticate, async (req, res) => {
-//   try {
-//     const { productId } = req.body;
-//     const userId = req.user._id;
-
-//     let cart = await Cart.findOne({ userId });
-//     if (!cart) return res.status(404).json({ message: "Cart not found" });
-
-//     cart.items = cart.items.filter(item => item.productId.toString() !== productId);
-//     await cart.save();
-
-//     res.status(200).json({ message: "Product removed from cart", cart });
-//   } catch (error) {
-//     res.status(500).json({ message: "Server error", error });
-//   }
-// });
 
 // Get user cart
 app.get("/cart", authenticate, async (req, res) => {
@@ -391,8 +279,6 @@ app.get("/cart", authenticate, async (req, res) => {
     res.status(500).json({ message: "Server error", error });
   }
 });
-
-
 
 
 
@@ -422,29 +308,58 @@ app.post("/products", async (req, res) => {
   }
 });
 
-// Create an order
-app.post("/api/orders",authenticate, async (req, res) => {
-  const { user, products, totalAmount, contactDetails } = req.body;
-
+// Create an order & generate Razorpay order ID
+app.post("/api/orders", authenticate, async (req, res) => {
   try {
-    // Get user details (you might want to ensure the user is authenticated before)
     const userDetails = await User.findById(req.user.id);
-
     if (!userDetails) {
       return res.status(400).json({ message: "User not found" });
     }
 
-    // Create the order
-    const newOrder = new Order({
+    // Fetch cart items for the user
+    const cart = await Cart.findOne({ userId: req.user.id }).populate("items.productId");
+
+    if (!cart || cart.items.length === 0) {
+      return res.status(400).json({ message: "Cart is empty" });
+    }
+
+    // Map products from the cart
+    const products = cart.items.map((item) => ({
+      product: item.productId._id,
+      quantity: item.quantity,
+      selectedColor: item.selectedColor,
+    }));
+
+    const totalAmount = cart.totalAmount;
+
+    // Create Razorpay order
+    const razorpayOrder = await razorpay.orders.create({
+      amount: totalAmount * 100, // Convert to paise
+      currency: "INR",
+      receipt: `order_${Date.now()}`,
+    });
+
+    // Save order in DB with pending payment
+    const newOrder = new OrderModel({
       user: userDetails._id,
       products,
       totalAmount,
-      status: "pending", // Initial status
-      contactDetails,
+      status: "pending",
+      contactDetails: {
+        contactNo: userDetails.contactNo,
+        address: userDetails.address,
+        pincode: userDetails.pincode,
+      },
+      paymentId: razorpayOrder.id, // Store Razorpay order ID
+      paymentStatus: "pending",
     });
 
-    const savedOrder = await newOrder.save();
-    res.status(201).json(savedOrder);
+    await newOrder.save();
+
+    // Clear the cart after order creation
+    await Cart.deleteOne({ userId: req.user.id });
+
+    res.status(201).json({ order: newOrder, razorpayOrder });
   } catch (error) {
     console.error("Error creating order:", error);
     res.status(500).json({ message: "Server error" });
@@ -453,24 +368,44 @@ app.post("/api/orders",authenticate, async (req, res) => {
 
 
 
-// Create Order
-// app.post("/api/orders", authenticate, async (req, res) => {
-//   const user = await User.findById(req.user.id).populate("cart.product");
-  
-//   if (user.cart.length === 0) return res.status(400).json({ message: "Cart is empty" });
+// Verify payment and update order status
+app.post("/api/orders/verify-payment", authenticate, async (req, res) => {
+  const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = req.body;
 
-//   const order = new Order({
-//     user: user._id,
-//     items: user.cart.map(({ product, quantity, selectedColor }) => ({ product, quantity, selectedColor })),
-//     totalPrice: user.cart.reduce((total, item) => total + item.product.price * item.quantity, 0),
-//   });
+  try {
+    // Find the order in DB
+    const order = await OrderModel.findOne({ paymentId: razorpay_order_id });
 
-//   await order.save();
-//   user.cart = [];
-//   await user.save();
+    if (!order) {
+      return res.status(400).json({ message: "Order not found" });
+    }
 
-//   res.status(201).json({ message: "Order placed successfully", order });
-// });
+    // Generate the signature for verification
+    const generatedSignature = crypto
+      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
+      .update(`${razorpay_order_id}|${razorpay_payment_id}`)
+      .digest("hex");
+
+    // Compare the signatures
+    if (generatedSignature === razorpay_signature) {
+      // Payment is valid, update order
+      order.paymentStatus = "success";
+      order.status = "pending"; // Order processing starts
+      await order.save();
+
+      return res.status(200).json({ message: "Payment verified successfully", order });
+    } else {
+      // Invalid signature
+      order.paymentStatus = "failed";
+      await order.save();
+
+      return res.status(400).json({ message: "Payment verification failed" });
+    }
+  } catch (error) {
+    console.error("Error verifying payment:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

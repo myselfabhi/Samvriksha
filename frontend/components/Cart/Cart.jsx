@@ -17,7 +17,9 @@ const Cart = () => {
   };
 
   const handleOrderCreated = (newOrder) => {
-    setOrderData(newOrder); // Optionally, show order confirmation or redirect
+    // setOrderData(newOrder); // Optionally, show order confirmation or redirect
+    // console.log(orderData)
+    window.location.reload()
   };
 
   const totalPrice = cart?.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
@@ -88,7 +90,8 @@ const Cart = () => {
           </button>
         </>
       )}
-      <CheckoutModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onOrderCreated={handleOrderCreated} />
+      <CheckoutModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onOrderCreated={handleOrderCreated}/>
+      {/* <CheckoutModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onOrderCreated={handleOrderCreated} /> */}
     </div>
   );
 };
@@ -96,4 +99,60 @@ const Cart = () => {
 export default Cart;
 
 
+// import React, { useState } from "react";
+// import styles from "./Cart.module.css";
+// import { useCart } from "../../src/CartContext";
+// import CheckoutModal from "../CheckoutModal/CheckoutModal";
+// import { useNavigate } from "react-router-dom";
+// import { useAuth } from "../../src/AuthContext";
 
+// const Cart = () => {
+//   const { cart, removeFromCart, updateQuantity } = useCart();
+//   const [isModalOpen, setIsModalOpen] = useState(false);
+//   const { user } = useAuth();
+//   const navigate = useNavigate();
+
+//   const handleCheckout = () => {
+//     setIsModalOpen(true);
+//   };
+
+//   const totalPrice = cart?.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
+
+//   return (
+//     <div className={styles.cartContainer}>
+//       <h2 className={styles.cartHeader}>Your Cart</h2>
+//       {cart?.length === 0 ? (
+//         <p style={{ textAlign: "center", fontSize: "18px" }}>Your cart is empty</p>
+//       ) : (
+//         <>
+//           {cart.map((item, index) => (
+//             <div key={index} className={styles.cartItem}>
+//               <img src={item?.product?.img?.[0]} alt={item?.product?.name} className={styles.itemImage} />
+//               <div className={styles.itemDetails}>
+//                 <p className={styles.itemName}>{item?.product?.name}</p>
+//                 <p className={styles.itemPrice}>Price: ₹{item?.product?.price}</p>
+//               </div>
+//               <div className={styles.itemControls}>
+//                 <div className={styles.quantityControl}>
+//                   <button onClick={() => updateQuantity(item.product._id, item.quantity - 1)}>-</button>
+//                   <span>{item?.quantity}</span>
+//                   <button onClick={() => updateQuantity(item.product._id, item.quantity + 1)}>+</button>
+//                 </div>
+//                 <button className={styles.removeButton} onClick={() => removeFromCart(item.product._id)}>
+//                   Remove
+//                 </button>
+//               </div>
+//             </div>
+//           ))}
+//           <h3 className={styles.cartTotal}>Total: ₹{totalPrice}</h3>
+//           <button className={styles.checkoutButton} onClick={user ? handleCheckout : () => navigate("/login")}>
+//             Proceed to Checkout
+//           </button>
+//         </>
+//       )}
+//       <CheckoutModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} totalAmount={totalPrice} />
+//     </div>
+//   );
+// };
+
+// export default Cart;

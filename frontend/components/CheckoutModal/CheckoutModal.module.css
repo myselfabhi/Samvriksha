@@ -55,6 +55,12 @@
   border: 2px solid #ddd;
   box-sizing: border-box;
   transition: border-color 0.3s ease;
+  font-family: "Poppins", sans-serif;
+}
+.modalPrice{
+  font-family: "Poppins", sans-serif;
+  font-size: small;
+  font-weight: bold;
 }
 
 .checkoutModalTextarea {

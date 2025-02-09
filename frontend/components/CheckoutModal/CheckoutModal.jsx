@@ -1,38 +1,107 @@
 import React, { useState, useEffect } from "react";
 import { useCart } from "../../src/CartContext";
-import { useAuth } from "../../src/AuthContext"; // Assuming you have user context for fetching user data
+import { useAuth } from "../../src/AuthContext";
 import axios from "axios";
 import styles from "./CheckoutModal.module.css";
 
 const CheckoutModal = ({ isOpen, onClose, onOrderCreated }) => {
   const { cart, setCart } = useCart();
-  const { user } = useAuth(); // Assuming user data is fetched and stored in context
+  const {user} = useAuth()
   const [contactDetails, setContactDetails] = useState({
-    contactNo: user?.contactNo || "",
-    address: user?.address || "",
-    pincode: user?.pincode || "",
+    contactNo: "",
+    address: "",
+    pincode: "",
   });
 
-  const handleSubmit = async () => {
-    const orderData = {
-      user: user._id,
-      products: cart.map((item) => ({
-        product: item._id,
-        quantity: item.quantity,
-        selectedColor: item.selectedColor,
-      })),
-      totalAmount: cart.reduce((acc, item) => acc + item.price * item.quantity, 0),
-      contactDetails,
-    };
+  // useEffect(() => {
+  //   const savedDetails = JSON.parse(localStorage.getItem("contactDetails"));
+  //   if (savedDetails) {
+  //     setContactDetails(savedDetails);
+  //   }
+  // }, []);
 
+  // useEffect(() => {
+  //   const script = document.createElement("script");
+  //   script.src = "https://checkout.razorpay.com/v1/checkout.js";
+  //   script.async = true;
+  //   document.body.appendChild(script);
+  // }, []);
+
+  useEffect(() => {
+    // Load saved contact details from local storage
+    const savedDetails = JSON.parse(localStorage.getItem("contactDetails"));
+    if (savedDetails) {
+      setContactDetails(savedDetails);
+    }
+
+    // Load Razorpay script dynamically
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+  
+
+  const totalAmount = cart.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
+
+  const handlePayment = async () => {
     try {
-      const response = await axios.post("http://localhost:3000/api/orders", orderData);
-      onOrderCreated(response.data);
-      setCart([])  
-      localStorage.removeItem("cart")
-      onClose(); // Close the modal after order is created
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.error("No token found");
+        return;
+      }
+
+      // Save contact details to local storage
+      localStorage.setItem("contactDetails", JSON.stringify(contactDetails));
+
+      // Create order on backend
+      const orderResponse = await axios.post("http://localhost:3000/api/orders", {}, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const { order, razorpayOrder } = orderResponse.data;
+
+      // Open Razorpay payment modal
+      const options = {
+        key: "rzp_test_YdGeAGIdZWPXpJ", // Replace with actual key
+        amount: razorpayOrder.amount,
+        currency: "INR",
+        name: "Samvriksha",
+        description: "Order Payment",
+        order_id: razorpayOrder.id,
+        handler: async function (response) {
+          try {
+            // Verify payment on backend
+            const verifyResponse = await axios.post("http://localhost:3000/api/orders/verify-payment", {
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_signature: response.razorpay_signature,
+            }, {
+              headers: { Authorization: `Bearer ${token}` },
+            });
+
+            onOrderCreated(verifyResponse.data);
+            setCart([]);
+            localStorage.removeItem("cart");
+            onClose();
+          } catch (error) {
+            console.error("Payment verification failed", error);
+          }
+        },
+        prefill: {
+          contact: contactDetails.contactNo,
+        },
+        theme: { color: "#3399cc" },
+      };
+
+      const razorpay = new window.Razorpay(options);
+      razorpay.open();
     } catch (error) {
-      console.error("Error creating order", error);
+      console.error("Error initiating payment", error);
     }
   };
 
@@ -69,19 +138,12 @@ const CheckoutModal = ({ isOpen, onClose, onOrderCreated }) => {
               onChange={(e) => setContactDetails({ ...contactDetails, pincode: e.target.value })}
             />
           </div>
+          <div className={styles.modalPrice}>Amount to Pay: ₹{totalAmount}</div>
           <div className={styles.checkoutModalFooter}>
-            <button
-              type="button"
-              className={styles.checkoutModalButton}
-              onClick={handleSubmit}
-            >
-              Confirm Order
+            <button type="button" className={styles.checkoutModalButton} onClick={handlePayment}>
+              Proceed to Payment
             </button>
-            <button
-              type="button"
-              className={styles.checkoutModalCancelButton}
-              onClick={onClose}
-            >
+            <button type="button" className={styles.checkoutModalCancelButton} onClick={onClose}>
               Cancel
             </button>
           </div>
@@ -92,3 +154,6 @@ const CheckoutModal = ({ isOpen, onClose, onOrderCreated }) => {
 };
 
 export default CheckoutModal;
+
+
+
