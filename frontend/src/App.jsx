@@ -67,6 +67,7 @@ import { FaCircleUser } from "react-icons/fa6";
 import { RiLoginBoxFill } from "react-icons/ri";
 import Register from '../pages/Register/Register';
 import Profile from '../pages/Profile/Profile';
+import Orders from '../pages/Orders/Orders';
 
 
 
@@ -118,7 +119,7 @@ function AppContent() {
           <ul className='dropdown'>
                     <li>Hi! {user.firstName}</li>
                     <li onClick={()=> navigate('/profile')}>Profile</li>
-                    <li>Orders</li>
+                    <li onClick={()=> navigate('/orders')}>Orders</li>
                     <li onClick={() => logout()}>Logout</li>
                 </ul>
           </div>) : (
@@ -135,6 +136,7 @@ function AppContent() {
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/profile' element={<Profile />} />
+        <Route path='/orders' element={<Orders />} />
         <Route path='/products/:category' element={<Products />} />
         <Route path='/productInfo/:slug' element={<ProductInfo />} />
         <Route path='/cart' element={<Cart />} />

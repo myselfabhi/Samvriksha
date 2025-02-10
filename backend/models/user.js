@@ -9,13 +9,6 @@ const UserSchema = new mongoose.Schema({
   address: { type: String, required: true },
   pincode: { type: String, required: true },
   isVerified: { type: Boolean, default: false }, // Email verification flag
-  // cart: [
-  //   {
-  //     product: { type: mongoose.Schema.Types.ObjectId, ref: "Products" },
-  //     quantity: Number,
-  //     selectedColor: String,
-  //   },
-  // ],
 });
 
 const userModel = mongoose.model("Users", UserSchema);

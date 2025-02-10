@@ -1,17 +1,17 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useAuth } from "../../src/AuthContext";
 import styles from "./Profile.module.css";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const { user } = useAuth();
-  const [userDetails, setUserDetails] = useState({
-    firstName: user?.firstName || "",
-    lastName: user?.lastName || "",
-    email: user?.email || "",
-    contactNo: user?.contactNo || "",
-    address: user?.address || "",
-    pincode: user?.pincode || "",
-  });
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  } , [token]);  
 
   return (
     <div className={styles.profileContainer}>
@@ -23,7 +23,7 @@ const Profile = () => {
             <input
               className={styles.profileInput}
               type="text"
-              value={userDetails.firstName}
+              value={user?.firstName}
               readOnly
             />
           </div>
@@ -32,7 +32,7 @@ const Profile = () => {
             <input
               className={styles.profileInput}
               type="text"
-              value={userDetails.lastName}
+              value={user?.lastName}
               readOnly
             />
           </div>
@@ -41,7 +41,7 @@ const Profile = () => {
             <input
               className={styles.profileInput}
               type="email"
-              value={userDetails.email}
+              value={user?.email}
               readOnly
             />
           </div>
@@ -50,7 +50,7 @@ const Profile = () => {
             <input
               className={styles.profileInput}
               type="text"
-              value={userDetails.contactNo}
+              value={user?.contactNo}
               readOnly
             />
           </div>
@@ -58,7 +58,7 @@ const Profile = () => {
             <label className={styles.profileLabel}>Address</label>
             <textarea
               className={styles.profileTextarea}
-              value={userDetails.address}
+              value={user?.address}
               readOnly
             />
           </div>
@@ -67,7 +67,7 @@ const Profile = () => {
             <input
               className={styles.profileInput}
               type="text"
-              value={userDetails.pincode}
+              value={user?.pincode}
               readOnly
             />
           </div>

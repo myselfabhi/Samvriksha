@@ -104,7 +104,7 @@ app.post("/api/register", async (req, res) => {
 
     try {
       await transporter.sendMail({
-        from: '"Samvriksha" <test527967@gmail.com>',
+        from: '"Samvriksha" <samvriksha@gmail.com>',
         to: normalizedEmail,
         subject: "Email Verification",
         html: `<p>Click the link to verify your email: <a href="${verifyLink}">${verifyLink}</a></p>`,
@@ -406,6 +406,21 @@ app.post("/api/orders/verify-payment", authenticate, async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
+
+
+app.get("/api/orders", authenticate, async (req, res) => {
+  try {
+    const orders = await OrderModel.find({ user: req.user.id })
+      .populate("products.product", "name img").sort({ createdAt: -1 }); // Populate product with name and image
+
+    res.status(200).json(orders);
+  } catch (error) {
+    console.error("Error fetching orders:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
