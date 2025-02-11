@@ -1,21 +1,18 @@
 .profileContainer {
     display: flex;
     justify-content: center;
-    /* align-items: center; */
     min-height: calc(100vh - 5vh - 20px);
     background-color: #f4f4f4;
-    /* padding: 20px; */
 }
 
 .profileContent {
-    /* background: rgba(255, 255, 255, 0.85); */
     backdrop-filter: blur(5px);
     padding: 30px;
     border-radius: 12px;
-    /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); */
     width: 90%;
-    max-width: 800px; /* Increased width for better spacing */
+    max-width: 800px;
     text-align: center;
+    /* background: rgba(255, 255, 255, 0.9); */
 }
 
 .profileHeader {
@@ -23,23 +20,19 @@
     font-weight: bold;
     color: #4caf50;
     margin-bottom: 20px;
-    text-align: center;
 }
 
 .profileForm {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
-    /* align-items: center; */
     text-align: left;
 }
 
-/* Ensures each label is on top of the input field */
 .profileForm div {
     display: flex;
     flex-direction: column;
 }
-
 
 .profileLabel {
     font-size: 16px;
@@ -60,11 +53,9 @@
     font-family: "Poppins", sans-serif;
     background: rgba(255, 255, 255, 0.7);
     color: #333;
-    min-height: 48px; /* Match input field height */
-
+    min-height: 48px;
 }
 
-/* Full width for Address */
 .profileTextarea {
     resize: none;
     min-height: 100px;
@@ -77,13 +68,83 @@
     outline: none;
 }
 
-/* Make it responsive */
+.buttonGroup {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.editButton,
+.saveButton {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.editButton:hover,
+.saveButton:hover {
+    background-color: #45a049;
+}
+
+.passwordHeader {
+    font-size: 22px;
+    color: #333;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+.passwordInfo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-direction: column;
+}
+
+.passwordInput {
+    width: 50%;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+    font-family: "Poppins", sans-serif;
+    background: rgba(255, 255, 255, 0.7);
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.passwordInput:focus {
+    border-color: #4caf50;
+    outline: none;
+}
+
+.changePasswordButton {
+    background-color: #f44336;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.changePasswordButton:hover {
+    background-color: #d32f2f;
+}
+
 @media (max-width: 768px) {
     .profileForm {
-        grid-template-columns: 1fr; /* Stack on smaller screens */
+        grid-template-columns: 1fr;
     }
-
     .profileTextarea {
-        grid-column: span 1; /* Single column in mobile view */
+        grid-column: span 1;
     }
 }

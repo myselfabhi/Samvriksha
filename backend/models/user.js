@@ -9,6 +9,8 @@ const UserSchema = new mongoose.Schema({
   address: { type: String, required: true },
   pincode: { type: String, required: true },
   isVerified: { type: Boolean, default: false }, // Email verification flag
+  expiresAt: { type: Date, index: { expires: "24h" } }, // Auto-delete unverified users
+
 });
 
 const userModel = mongoose.model("Users", UserSchema);

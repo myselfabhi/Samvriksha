@@ -66,7 +66,7 @@ const authenticate = async (req, res, next) => {
 };
 
 
-
+//Registration
 app.post("/api/register", async (req, res) => {
   try {
     const { firstName, lastName, email, password, contactNo, address, pincode } = req.body;
@@ -82,7 +82,7 @@ app.post("/api/register", async (req, res) => {
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create user
+    // Set expiration only for unverified users
     const newUser = new User({
       firstName,
       lastName,
@@ -92,6 +92,7 @@ app.post("/api/register", async (req, res) => {
       address,
       pincode,
       isVerified: false,
+      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours from now
     });
 
     await newUser.save();
@@ -100,20 +101,16 @@ app.post("/api/register", async (req, res) => {
     const token = jwt.sign({ email: normalizedEmail }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
     // Send email verification link
-    const verifyLink = `http://localhost:3000/verify-email?token=${token}`;
+    const verifyLink = `${process.env.BACKEND_URL}/verify-email?token=${token}`;
 
-    try {
-      await transporter.sendMail({
-        from: '"Samvriksha" <samvriksha@gmail.com>',
-        to: normalizedEmail,
-        subject: "Email Verification",
-        html: `<p>Click the link to verify your email: <a href="${verifyLink}">${verifyLink}</a></p>`,
-      });
-    } catch (emailErr) {
-      console.error("Email sending failed:", emailErr.message);
-    }
+    await transporter.sendMail({
+      from: '"Samvriksha" <samvriksha@gmail.com>',
+      to: normalizedEmail,
+      subject: "Email Verification",
+      html: `<p>Click the link to verify your email: <a href="${verifyLink}">${verifyLink}</a></p>`,
+    });
 
-    res.json({ message: "Registration successful. Check your email for verification." });
+    res.json({ message: "Registration successful. Check your email for verification (Valid only for 24 hours)." });
 
   } catch (err) {
     res.status(500).json({ message: "Server error", error: err.message });
@@ -121,19 +118,35 @@ app.post("/api/register", async (req, res) => {
 });
 
 
-// Email Verification Route
+//Email Verification
 app.get("/verify-email", async (req, res) => {
   try {
     const { token } = req.query;
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    await User.findOneAndUpdate({ email: decoded.email }, { isVerified: true });
+    const user = await User.findOneAndUpdate(
+      { email: decoded.email },
+      { isVerified: true, $unset: { expiresAt: 1 } },
+      { new: true }
+    );
 
-    res.json({ message: "Email verified successfully!" });
+    if (!user) return res.send("<h2>User not found or already deleted</h2>");
+
+    res.send(`
+      <html>
+        <head><title>Email Verified</title></head>
+        <body style="text-align:center; padding:50px;">
+          <h2>Email Verified Successfully!</h2>
+          <p>You can now <a href=${process.env.FRONTEND_URL}/login>Login</a></p>
+        </body>
+      </html>
+    `);
   } catch (err) {
-    res.status(400).json({ message: "Invalid or expired token" });
+    res.send("<h2>Invalid or expired token</h2>");
   }
 });
+
+
 
 app.get("/api/me", async (req, res) => {
   try {
@@ -151,12 +164,17 @@ app.get("/api/me", async (req, res) => {
   }
 });
 
-// User Login
 app.post("/api/login", async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
+
     if (!user) return res.status(400).json({ message: "User not found" });
+
+    // Check if email is verified
+    if (!user.isVerified) {
+      return res.status(403).json({ message: "Please verify your email before logging in" });
+    }
 
     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword) return res.status(400).json({ message: "Invalid credentials" });
@@ -165,6 +183,43 @@ app.post("/api/login", async (req, res) => {
     res.json({ token, user, message: "Login successful" });
   } catch (err) {
     res.status(500).json({ message: err.message });
+  }
+});
+
+
+
+// Update Profile
+app.put("/update-profile", authenticate, async (req, res) => {
+  const { firstName, lastName, contactNo, address, pincode } = req.body;
+
+  try {
+    const user = await User.findByIdAndUpdate(
+      req.user._id,
+      { firstName, lastName, contactNo, address, pincode },
+      { new: true }
+    );
+    res.json({ success: true, user });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+});
+
+// Change Password
+app.put("/change-password", authenticate, async (req, res) => {
+  const { currentPassword, newPassword } = req.body;
+
+  try {
+    const user = await User.findById(req.user._id);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch) return res.status(400).json({ message: "Incorrect password" });
+
+    user.password = await bcrypt.hash(newPassword, 10);
+    await user.save();
+    res.json({ success: true, message: "Password updated successfully" });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Server error" });
   }
 });
 

@@ -148,6 +148,7 @@ import axios from 'axios';
 import styles from './Products.module.css';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import { useParams } from 'react-router-dom';
+import Loader from '../../components/Loader/Loader';
 
 const Products = () => {
   const { category } = useParams();
@@ -288,7 +289,8 @@ const Products = () => {
 
       <div className={styles.productSection}>
         {loading ? (
-          <p style={{ textAlign: 'center' }}>Loading products...</p>
+          <Loader/>
+          // <p style={{ textAlign: 'center' }}>Loading products...</p>
         ) : error ? (
           <p style={{ textAlign: 'center', color: 'red' }}>{error}</p>
         ) : filteredProducts.length > 0 ? (

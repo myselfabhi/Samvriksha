@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import styles from "./Register.module.css"; 
+import Loader from "../../components/Loader/Loader";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +15,8 @@ const Register = () => {
   });
 
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,16 +24,20 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const res = await axios.post("http://localhost:3000/api/register", formData);
       setMessage(res.data.message);
     } catch (err) {
       setMessage(err.response?.data?.message || "Registration failed");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className={styles.container}>
+      {loading && <Loader />}
       <div className={styles.formWrapper}>
         <h2 className={styles.header}>Register</h2>
         {message && <p className={styles.message}>{message}</p>}

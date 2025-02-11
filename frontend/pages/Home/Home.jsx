@@ -5,7 +5,7 @@ import Card from '../../components/Card/Card'
 import { FaWind } from "react-icons/fa";
 import { TbMoodSpark } from "react-icons/tb";
 import { RiFlowerFill } from "react-icons/ri";
-
+import { products } from '../../src/products';
 
 import Testimonial from '../../components/Testimonial/Testimonial';
 import FooterNav from '../../components/FooterNav/FooterNav';
@@ -34,10 +34,10 @@ const Home = () => {
         <div className={styles.discoverBox}>
           <h2 className={styles.discoverTitle}>EXPLORE</h2> 
           <div className={styles.cardContainer}>
-            <Card img='https://imgs.search.brave.com/9GwYToucoWK4A7GMI-L3snQT7iZ5lxdBDVXWiXzMwVY/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/bW9zLmNtcy5mdXR1/cmVjZG4ubmV0L2Zt/SkhITmd0SnpNdjd2/TGVWYTJRN24tMzIw/LTgwLmpwZw' title='Balcony Bageecha' content='Bring the outdoors inside with our indoor wish tree collection. These plants are perfect for adding a touch of green to your home or office.'/>
-            <Card img='https://imgs.search.brave.com/0YuSboazURQU8N56W5Zn-pqTfbUrAiPZpOqtpLghLA0/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMxLmJhY2t5YXJk/Ym9zc2ltYWdlcy5j/b20vd29yZHByZXNz/L3dwLWNvbnRlbnQv/dXBsb2Fkcy8yMDIy/LzEyL3Bhd2VsLWN6/ZXJ3aW5za2ktQkFp/UmZidDFIUkUtdW5z/cGxhc2guanBn' title='Bookshelf' content='Bring the outdoors inside with our indoor wish tree collection. These plants are perfect for adding a touch of green to your home or office.'/>
-            <Card img='https://imgs.search.brave.com/9CCkF_7cuuylcXGsDMaB-JD02LcwuUvhgjAn5YX_ir0/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/ZnJlZS1waG90by9w/YWxtLXRyZWUtaG91/c2UtcGxhbnQtcG90/XzUzODc2LTEyNTgz/Ny5qcGc_c2VtdD1h/aXNfaHlicmlk' title='Outdoor Wish Tree' content='Bring the outdoors inside with our indoor wish tree collection. These plants are perfect for adding a touch of green to your home or office.'/>
-            <Card img='https://imgs.search.brave.com/WhlxjyzsXAo8yh5Tdo1SlI4lXw3lxXkKYyWn5vcu2WU/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/ZnJlZS1waG90by96/ei1wbGFudC1ncmF5/LXBvdF81Mzg3Ni0x/MzQyODUuanBnP3Nl/bXQ9YWlzX2h5YnJp/ZA' title='Indoor Wish Tree' content='Bring the outdoors inside with our indoor wish tree collection. These plants are perfect for adding a touch of green to your home or office.'/>
+            <Card img={products[0].img[0]} name={products[0].name} desc={products[0].description} price={products[0].price} slug={products[0].slug} colors={products[0].colors}/>
+            <Card img={products[1].img[0]} name={products[1].name} desc={products[1].description} price={products[1].price} slug={products[1].slug} colors={products[1].colors}/>
+            <Card img={products[2].img[0]} name={products[2].name} desc={products[2].description} price={products[2].price} slug={products[2].slug} colors={products[2].colors}/>
+            <Card img={products[3].img[0]} name={products[3].name} desc={products[3].description} price={products[3].price} slug={products[3].slug} colors={products[3].colors}/>
           </div>
         </div>
         <div className={styles.infoBox}>

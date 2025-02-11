@@ -5,9 +5,9 @@
     align-items: center;
     width: 300px;
     height: 500px;
-    background-color: rgba(196, 196, 196, 0.47);
+    background-color: rgba(243, 243, 243, 0.373);
     backdrop-filter: blur(5px);
-    padding: 10px;
+    /* padding: 10px; */
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -21,7 +21,9 @@
 .cardImage {
     display: flex;
     justify-content: center;
+    padding: 1px;
 }
+
 
 .cardImage img {
     width: 90%;
@@ -34,7 +36,7 @@
 }
 
 .cardBox:hover .cardImage img {
-    transform: scale(1.1); /* Zoom image slightly on hover */
+    transform: scale(0.9); /* Zoom image slightly on hover */
 }
 
 .cardContent {
@@ -42,14 +44,16 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 10px;
+    padding: 0 10px;
     text-align: justify;
 }
 
 .cardTitle {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-weight: 700;
+    margin-bottom: 20px;
     color: black;
+    text-align: center;
 }
 
 .cardText {
@@ -58,12 +62,25 @@
     color: black;
 }
 
-.cardButtonBox {
+.cardPrice{
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+/* .cardButtonBox {
     display: flex;
     flex-direction: row;
-    justify-content: end;
     align-items: center;
-}
+    justify-content: space-evenly;
+} */
+ .cardButtonBox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+ }
 
 .cardButton {
     font-size: medium;
@@ -73,11 +90,10 @@
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    border: none;
+    border: black solid 1px;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .cardButton:hover {
     background-color: #00c853; /* Change button color on hover */
-    transform: scale(1.1); /* Slightly enlarge button */
 }

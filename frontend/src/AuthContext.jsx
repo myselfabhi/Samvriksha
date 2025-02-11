@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
+import Loader from "../components/Loader/Loader";
 
 const AuthContext = createContext();
 
@@ -22,7 +23,7 @@ export const AuthProvider = ({ children }) => {
           }
         });
     }
-    setLoading(false);
+    setTimeout(() => setLoading(false), 500);;
   }, []);
   
 
@@ -45,7 +46,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{ user, login, logout, loading }}>
-      {children}
+      {loading ? <Loader /> : children}
     </AuthContext.Provider>
   );
 };
