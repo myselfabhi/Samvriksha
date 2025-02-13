@@ -11,6 +11,7 @@
 
 .navbar ul li{
     cursor: pointer;
+    color: white;
 }
 .navbar ul li:hover{
     color: black;

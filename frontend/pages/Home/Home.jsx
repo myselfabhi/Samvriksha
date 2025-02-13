@@ -12,6 +12,7 @@ import FooterNav from '../../components/FooterNav/FooterNav';
 import Footer from '../../components/Footer/Footer';
 import { useAuth } from '../../src/AuthContext';
 import { useCart } from '../../src/CartContext';
+import WhatsAppBtn from '../../components/WhatsAppBtn/WhatsAppBtn';
 
 
 
@@ -24,6 +25,7 @@ const Home = () => {
   
   return (
     <div style={{minHeight:'100vh'}} className={styles.homeContainer}>
+        <WhatsAppBtn/>
         <div className={styles.heroBox}>
           <div className={styles.heroContent}>
             <h1 className={styles.heroTitle}>Discover Your Perfect <span className={styles.heroTitleSpan}>Plant for Every</span> Occasion</h1>
@@ -63,7 +65,7 @@ const Home = () => {
           </div>
         </div>
         <div className={styles.infoImage}>
-          <img src='./infoImg.jpg' alt='infoImage' />
+          <img src='/infoImg.jpg' alt='infoImage' className={styles.responsiveImage}/>
 
         </div>
     </div>

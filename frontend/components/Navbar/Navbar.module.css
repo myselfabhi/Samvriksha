@@ -1,8 +1,7 @@
-.navbar ul{
+/* .navbar ul{
     display: flex;
     flex-direction: row;
     color: black;
-    /* justify-content: center; */
     gap: 20px;
     list-style: none;
     font-weight: bold;
@@ -26,7 +25,6 @@
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
-    /* padding: 15px 10px; */
 }
 
 .navbar ul li:hover .dropdown {
@@ -43,4 +41,84 @@
 
 .navbar ul li .dropdown li:hover {
     background-color: #00ED64;
+}
+
+@media (max-width: 768px) {
+    .navbar ul{
+        flex-direction: column;
+        position: absolute;
+        top: 0;
+        justify-content: center;
+        align-items: center;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        backdrop-filter: blur(10px);
+    }
+  } */
+
+  .navbar {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+}
+
+ .navbar ul{
+    color: black;
+    }
+
+.navbar ul li{
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
+    text-align: center;
+}
+.navbar ul li:hover{
+    color: green;
+}
+
+.menuIcon {
+    display: none;
+    cursor: pointer;
+}
+
+.navList {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+    font-weight: bold;
+    align-items: center;
+}
+
+.navList li {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .menuIcon {
+        display: block;
+    }
+
+    .navList {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        transform: translateY(-100%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 1000;
+    }
+
+    .navList.open {
+        transform: translateY(0);
+    }
 }

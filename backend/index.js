@@ -6,6 +6,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
+const axios = require("axios");
 const Razorpay = require("razorpay");
 const crypto = require("crypto");
 const User = require("./models/user");
@@ -422,6 +423,61 @@ app.post("/api/orders", authenticate, async (req, res) => {
 });
 
 
+// app.post("/api/orders", authenticate, async (req, res) => {
+//   try {
+//     const { shippingAmount } = req.body;
+
+//     const userDetails = await User.findById(req.user.id);
+//     if (!userDetails) {
+//       return res.status(400).json({ message: "User not found" });
+//     }
+
+//     const cart = await Cart.findOne({ userId: req.user.id }).populate("items.productId");
+
+//     if (!cart || cart.items.length === 0) {
+//       return res.status(400).json({ message: "Cart is empty" });
+//     }
+
+//     const products = cart.items.map((item) => ({
+//       product: item.productId._id,
+//       quantity: item.quantity,
+//       selectedColor: item.selectedColor,
+//     }));
+
+//     const totalAmount = cart.totalAmount + shippingAmount;
+
+//     const razorpayOrder = await razorpay.orders.create({
+//       amount: totalAmount * 100,
+//       currency: "INR",
+//       receipt: `order_${Date.now()}`,
+//     });
+
+//     const newOrder = new OrderModel({
+//       user: userDetails._id,
+//       products,
+//       totalAmount,
+//       status: "pending",
+//       contactDetails: {
+//         contactNo: userDetails.contactNo,
+//         address: userDetails.address,
+//         pincode: userDetails.pincode,
+//       },
+//       paymentId: razorpayOrder.id,
+//       paymentStatus: "pending",
+//     });
+
+//     await newOrder.save();
+//     await Cart.deleteOne({ userId: req.user.id });
+
+//     res.status(201).json({ order: newOrder, razorpayOrder });
+//   } catch (error) {
+//     console.error("Error creating order:", error);
+//     res.status(500).json({ message: "Server error" });
+//   }
+// });
+
+
+
 
 // Verify payment and update order status
 app.post("/api/orders/verify-payment", authenticate, async (req, res) => {
@@ -474,6 +530,37 @@ app.get("/api/orders", authenticate, async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
+
+
+
+// fetch shipping charge
+// app.post("/api/shipping", authenticate, async (req, res) => {
+//   try {
+//     const { pincode, weight } = req.body;
+
+//     // Authenticate with Shiprocket API to get token
+//     const authResponse = await axios.post("https://apiv2.shiprocket.in/v1/external/auth/login", {
+//       email: process.env.SHIPROCKET_ID,
+//       password: process.env.SHIPROCKET_PASS,
+//     });
+
+//     const token = authResponse.data.token;
+
+//     // Fetch shipping rate from Shiprocket API
+//     const shippingResponse = await axios.get(
+//       `https://apiv2.shiprocket.in/v1/external/courier/serviceability?pickup_postcode=${process.env.PICKUP_PICODE}&delivery_postcode=${pincode}&weight=${weight}&cod=0`,
+//       { headers: { Authorization: `Bearer ${token}` } }
+//     );
+
+//     // Extract lowest available shipping cost
+//     const shippingAmount = shippingResponse.data.data.available_courier_companies[0]?.rate || 50;
+
+//     res.json({ shippingAmount });
+//   } catch (error) {
+//     console.error("Error fetching shipping rate:", error);
+//     res.status(500).json({ message: "Error fetching shipping rate" });
+//   }
+// });
 
 
 

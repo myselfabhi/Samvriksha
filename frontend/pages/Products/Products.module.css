@@ -121,3 +121,34 @@ height: calc(100vh - 5vh - 20px);
   
   
 
+  @media (max-width: 768px) {
+    .productsContainer {
+      /* position: relative; */
+      flex-direction: column; /* Stack the filter and product sections */
+    }
+  
+    .filterSection {
+      /* flex: 1; */
+      /* position: static;  */
+      /* height: auto;  */
+      gap: 20px;
+      box-shadow: none; /* Remove shadow */
+    }
+
+    .filterBox{
+      display: flex;
+      flex-direction: row;
+      /* flex-wrap: wrap; */
+      gap: 10px;
+    }
+
+    .suggestionsList{
+      width: 90%;
+    }
+  
+    .productSection {
+      /* flex: 6; */
+      padding: 20px 0;
+      justify-content: center;
+    }
+  }
