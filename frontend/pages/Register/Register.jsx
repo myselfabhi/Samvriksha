@@ -26,7 +26,7 @@ const Register = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:3000/api/register", formData);
+      const res = await axios.post("https://samvrikshatest.onrender.com/api/register", formData);
       setMessage(res.data.message);
     } catch (err) {
       setMessage(err.response?.data?.message || "Registration failed");
@@ -80,6 +80,7 @@ const Register = () => {
             name="contactNo"
             placeholder="Contact No"
             onChange={handleChange}
+            maxLength={10}
             required
           />
           <input
@@ -96,6 +97,7 @@ const Register = () => {
             name="pincode"
             placeholder="Pincode"
             onChange={handleChange}
+            maxLength={6}
             required
           />
           <button className={styles.submitButton} type="submit">

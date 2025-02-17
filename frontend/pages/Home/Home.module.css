@@ -159,9 +159,17 @@
   } */
   
   @media (max-width: 768px) {
+    .heroBox{
+        padding: 20px;
+        height: calc(100vh - 5vh - 20px);
+    }
     .infoBox {
       flex-direction: column;
       text-align: center;
+      padding: 60px 20px;
+    }
+    .discoverBox{
+        padding: 60px 20px;
     }
     .infoTitle{
         font-size: 2rem;
@@ -180,6 +188,12 @@
         display: flex;
         flex-direction: column;
         gap: 30px;
+        align-items: center;
+    }
+    .addInfo{
+        width: 100%;
+    }
+    .addInfoTitle{
         align-items: center;
     }
     .discoverBox{

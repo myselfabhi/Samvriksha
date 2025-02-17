@@ -68,3 +68,9 @@
     justify-content: center;
     align-items: center;
 }
+
+@media (max-width: 768px) {
+    .footerBox{
+        padding: 60px 20px;
+    }
+  }

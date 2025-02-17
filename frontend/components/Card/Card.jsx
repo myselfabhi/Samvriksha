@@ -25,6 +25,7 @@ const Card = ({name,img,desc,price,slug,colors}) => {
            <img src={img} alt={name} className={styles.cardImg}/>
           </Link>          
           </div>
+          <div className={styles.cardDetails}>
           <div className={styles.cardContent}>
               <h2 className={styles.cardTitle}>{name}</h2>
               <p className={styles.cardText}>{desc.length > 120 ? desc.slice(0, 120) + "..." : desc}</p>
@@ -32,6 +33,7 @@ const Card = ({name,img,desc,price,slug,colors}) => {
           <div className={styles.cardButtonBox}>
               {/* {price != 0 ? <h4 className={styles.cardPrice}>₹{price}</h4> : ''} */}
               {<button onClick={()=> navigate(`/productInfo/${slug}`)} className={styles.cardButton}>View Product</button>}
+          </div>
           </div>
       </div>
     )

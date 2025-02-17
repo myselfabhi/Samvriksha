@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
     const token = localStorage.getItem("token");
     if (token) {
       axios
-        .get("http://localhost:3000/api/me", {
+        .get("https://samvrikshatest.onrender.com/api/me", {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => setUser(res.data))
@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
 
   // Login function
   const login = async (email, password) => {
-    const res = await axios.post("http://localhost:3000/api/login", {
+    const res = await axios.post("https://samvrikshatest.onrender.com/api/login", {
       email,
       password,
     });

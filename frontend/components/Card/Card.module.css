@@ -12,6 +12,15 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+.cardDetails{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 300px;
+    gap: 20px;
+    border-radius: 10px;
+}
 
 .cardBox:hover {
     /* transform: translateY(-10px) scale(1.05); */
@@ -97,3 +106,38 @@
 .cardButton:hover {
     background-color: #00c853; /* Change button color on hover */
 }
+
+
+@media (max-width: 768px) {
+    .cardBox{
+        flex-direction: row;
+        width: 90%;
+        height: 200px;
+        
+
+    }
+    .cardButton{
+        padding: 8px;
+    }
+    .cardDetails{
+        align-items: center;
+        gap: 0;
+        /* align-self: flex-end;
+        margin-bottom: 25px; */
+    }
+    .cardImage{
+        padding: 10px;
+    }
+    .cardImage img{
+        width: 150px;
+        height: 150px;
+        border-radius: 30px;
+    }
+    .cardBox:hover .cardImage img {
+        transform: scale(0.95); /* Zoom image slightly on hover */
+    }
+    .cardText{
+        display: none;
+    }
+
+  }

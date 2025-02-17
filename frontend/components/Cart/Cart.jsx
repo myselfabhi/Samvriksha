@@ -4,11 +4,14 @@ import { useCart } from "../../src/CartContext";
 import CheckoutModal from "../CheckoutModal/CheckoutModal";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../src/AuthContext";
+import OrderConfirmModal from "../OrderConfirmModal/OrderConfirmModal";
 
 const Cart = () => {
   const { cart, removeFromCart, updateQuantity } = useCart();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [orderData, setOrderData] = useState(null);
+  const [isOrderConfirmed, setIsOrderConfirmed] = useState(false);
+ 
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -17,9 +20,13 @@ const Cart = () => {
   };
 
   const handleOrderCreated = (newOrder) => {
-    // setOrderData(newOrder); // Optionally, show order confirmation or redirect
-    // console.log(orderData)
-    window.location.reload()
+    setIsModalOpen(false);
+    setIsOrderConfirmed(true);
+    setTimeout(() => {
+      setIsOrderConfirmed(false);
+      window.location.reload();
+      // navigate("/orders");
+    }, 3000); // Auto-close after 3 seconds
   };
 
   const totalPrice = cart?.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
@@ -91,6 +98,7 @@ const Cart = () => {
         </>
       )}
       <CheckoutModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onOrderCreated={handleOrderCreated}/>
+      <OrderConfirmModal isOpen={isOrderConfirmed} onClose={() => setIsOrderConfirmed(false)} />
       {/* <CheckoutModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onOrderCreated={handleOrderCreated} /> */}
     </div>
   );

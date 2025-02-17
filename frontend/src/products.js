@@ -36,7 +36,7 @@ export const products = [
     },
     {
         id: 4,
-        name: 'Kalp-Taru: The Wish Tree (Outdoor)',
+        name: 'Kalp-Taru: (Outdoor)',
         price: 6499,
         description: 'The outdoor version of Kalp-Taru. It can grow 42 plants however it comes without the LED grow lights and stand. This is ideal for your balconies and gardens.',
         category: ['farming'],

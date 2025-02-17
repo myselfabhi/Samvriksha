@@ -122,3 +122,9 @@
     background-color: #218838;
   }
   
+
+  @media (max-width: 768px) {
+    .cartContainer{
+      margin: 20px;
+    }
+  }

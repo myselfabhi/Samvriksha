@@ -191,4 +191,14 @@
     font-size: 0.9rem;
     color: gray;
   }
+
+  @media (max-width: 768px) {
+    .carouselButton{
+      width: 35px;
+      height: 35px;
+    }
+    .feedbackText {
+      font-size: 1rem;
+    }
+  }
   

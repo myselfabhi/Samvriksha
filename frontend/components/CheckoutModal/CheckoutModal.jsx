@@ -3,10 +3,12 @@ import { useCart } from "../../src/CartContext";
 import { useAuth } from "../../src/AuthContext";
 import axios from "axios";
 import styles from "./CheckoutModal.module.css";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutModal = ({ isOpen, onClose, onOrderCreated }) => {
   const { cart, setCart } = useCart();
   const {user} = useAuth()
+  const navigate = useNavigate();
   const [contactDetails, setContactDetails] = useState({
     contactNo: "",
     address: "",
@@ -29,10 +31,10 @@ const CheckoutModal = ({ isOpen, onClose, onOrderCreated }) => {
 
   useEffect(() => {
     // Load saved contact details from local storage
-    const savedDetails = JSON.parse(localStorage.getItem("contactDetails"));
-    if (savedDetails) {
-      setContactDetails(savedDetails);
-    }
+    // const savedDetails = JSON.parse(localStorage.getItem("contactDetails"));
+    // if (savedDetails) {
+    //   setContactDetails(savedDetails);
+    // }
 
     // Load Razorpay script dynamically
     const script = document.createElement("script");
@@ -48,6 +50,64 @@ const CheckoutModal = ({ isOpen, onClose, onOrderCreated }) => {
 
   const totalAmount = cart.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
 
+  // const handlePayment = async () => {
+  //   try {
+  //     const token = localStorage.getItem("token");
+  //     if (!token) {
+  //       console.error("No token found");
+  //       return;
+  //     }
+
+  //     // Save contact details to local storage
+  //     // localStorage.setItem("contactDetails", JSON.stringify(contactDetails));
+
+  //     // Create order on backend
+  //     const orderResponse = await axios.post("https://samvrikshatest.onrender.com/api/orders", {}, {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //     });
+  //     const { order, razorpayOrder } = orderResponse.data;
+
+  //     // Open Razorpay payment modal
+  //     const options = {
+  //       key: "rzp_test_YdGeAGIdZWPXpJ", // Replace with actual key
+  //       amount: razorpayOrder.amount,
+  //       currency: "INR",
+  //       name: "Samvriksha",
+  //       description: "Order Payment",
+  //       order_id: razorpayOrder.id,
+  //       handler: async function (response) {
+  //         try {
+  //           // Verify payment on backend
+  //           const verifyResponse = await axios.post("https://samvrikshatest.onrender.com/api/orders/verify-payment", {
+  //             razorpay_payment_id: response.razorpay_payment_id,
+  //             razorpay_order_id: response.razorpay_order_id,
+  //             razorpay_signature: response.razorpay_signature,
+  //           }, {
+  //             headers: { Authorization: `Bearer ${token}` },
+  //           });
+
+  //           onOrderCreated(verifyResponse.data);
+  //           setCart([]);
+  //           localStorage.removeItem("cart");
+  //           navigate("/orders");
+  //           onClose();
+  //         } catch (error) {
+  //           console.error("Payment verification failed", error);
+  //         }
+  //       },
+  //       prefill: {
+  //         contact: user?.contactNo,
+  //       },
+  //       theme: { color: "#3399cc" },
+  //     };
+
+  //     const razorpay = new window.Razorpay(options);
+  //     razorpay.open();
+  //   } catch (error) {
+  //     console.error("Error initiating payment", error);
+  //   }
+  // };
+
   const handlePayment = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -55,19 +115,18 @@ const CheckoutModal = ({ isOpen, onClose, onOrderCreated }) => {
         console.error("No token found");
         return;
       }
-
-      // Save contact details to local storage
+  
       localStorage.setItem("contactDetails", JSON.stringify(contactDetails));
-
+  
       // Create order on backend
-      const orderResponse = await axios.post("http://localhost:3000/api/orders", {}, {
+      const orderResponse = await axios.post("https://samvrikshatest.onrender.com/api/orders", {}, {
         headers: { Authorization: `Bearer ${token}` },
       });
+  
       const { order, razorpayOrder } = orderResponse.data;
-
-      // Open Razorpay payment modal
+  
       const options = {
-        key: "rzp_test_YdGeAGIdZWPXpJ", // Replace with actual key
+        key: "rzp_test_YdGeAGIdZWPXpJ",
         amount: razorpayOrder.amount,
         currency: "INR",
         name: "Samvriksha",
@@ -75,15 +134,19 @@ const CheckoutModal = ({ isOpen, onClose, onOrderCreated }) => {
         order_id: razorpayOrder.id,
         handler: async function (response) {
           try {
-            // Verify payment on backend
-            const verifyResponse = await axios.post("http://localhost:3000/api/orders/verify-payment", {
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_signature: response.razorpay_signature,
-            }, {
-              headers: { Authorization: `Bearer ${token}` },
-            });
-
+            // Payment verification
+            const verifyResponse = await axios.post(
+              "https://samvrikshatest.onrender.com/api/orders/verify-payment",
+              {
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_signature: response.razorpay_signature,
+              },
+              {
+                headers: { Authorization: `Bearer ${token}` },
+              }
+            );
+  
             onOrderCreated(verifyResponse.data);
             setCart([]);
             localStorage.removeItem("cart");
@@ -91,13 +154,31 @@ const CheckoutModal = ({ isOpen, onClose, onOrderCreated }) => {
           } catch (error) {
             console.error("Payment verification failed", error);
           }
+        },modal: {
+          escape: false,
+          ondismiss: function () {
+            // alert("Payment modal closed. Cancelling order...");
+            console.log("Payment modal closed by user.");
+      
+            axios.post(
+              "https://samvrikshatest.onrender.com/api/orders/cancel",
+              { razorpay_order_id: razorpayOrder.id },
+              { headers: { Authorization: `Bearer ${token}` } }
+            )
+            .then(() => console.log("Order cancelled successfully."))
+            .catch((err) => console.error("Error cancelling order:", err));
+          },
         },
         prefill: {
-          contact: contactDetails.contactNo,
+          contact: user?.contactNo,
+          name: user?.firstName,
+          email: user?.email,
         },
-        theme: { color: "#3399cc" },
+        theme: {
+          color: "#3399cc",
+        },
       };
-
+  
       const razorpay = new window.Razorpay(options);
       razorpay.open();
     } catch (error) {
@@ -113,20 +194,32 @@ const CheckoutModal = ({ isOpen, onClose, onOrderCreated }) => {
         <h2 className={styles.checkoutModalHeader}>Confirm Your Details</h2>
         <form className={styles.checkoutModalForm}>
           <div>
+            <label className={styles.checkoutModalLabel}>Name</label>
+            <input
+              className={styles.checkoutModalInput}
+              type="text"
+              value={user?.firstName}
+              onChange={(e) => setContactDetails({ ...contactDetails, contactNo: e.target.value })}
+              readOnly
+            />
+          </div>
+          <div>
             <label className={styles.checkoutModalLabel}>Contact Number</label>
             <input
               className={styles.checkoutModalInput}
               type="text"
-              value={contactDetails.contactNo}
+              value={user?.contactNo}
               onChange={(e) => setContactDetails({ ...contactDetails, contactNo: e.target.value })}
+              readOnly
             />
           </div>
           <div>
             <label className={styles.checkoutModalLabel}>Address</label>
             <textarea
               className={styles.checkoutModalTextarea}
-              value={contactDetails.address}
+              value={user?.address}
               onChange={(e) => setContactDetails({ ...contactDetails, address: e.target.value })}
+              readOnly
             />
           </div>
           <div>
@@ -134,8 +227,9 @@ const CheckoutModal = ({ isOpen, onClose, onOrderCreated }) => {
             <input
               className={styles.checkoutModalInput}
               type="text"
-              value={contactDetails.pincode}
+              value={user?.pincode}
               onChange={(e) => setContactDetails({ ...contactDetails, pincode: e.target.value })}
+              readOnly
             />
           </div>
           <div className={styles.modalPrice}>Amount to Pay: ₹{totalAmount}</div>
@@ -202,7 +296,7 @@ export default CheckoutModal;
 //         const totalWeight = cart.reduce((acc, item) => acc + (item.product.weight || 1), 0);
 
 //         const response = await axios.post(
-//           "http://localhost:3000/api/shipping",
+//           "https://samvrikshatest.onrender.com/api/shipping",
 //           { pincode: contactDetails.pincode, weight: totalWeight },
 //           { headers: { Authorization: `Bearer ${token}` } }
 //         );
@@ -233,7 +327,7 @@ export default CheckoutModal;
   
 //       // Create order on backend with shipping cost included
 //       const orderResponse = await axios.post(
-//         "http://localhost:3000/api/orders",
+//         "https://samvrikshatest.onrender.com/api/orders",
 //         { shippingAmount: shippingCost  },
 //         { headers: { Authorization: `Bearer ${token}` } }
 //       );
@@ -252,7 +346,7 @@ export default CheckoutModal;
 //           try {
 //             // Verify payment on backend
 //             const verifyResponse = await axios.post(
-//               "http://localhost:3000/api/orders/verify-payment",
+//               "https://samvrikshatest.onrender.com/api/orders/verify-payment",
 //               {
 //                 razorpay_payment_id: response.razorpay_payment_id,
 //                 razorpay_order_id: response.razorpay_order_id,

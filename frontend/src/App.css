@@ -70,3 +70,11 @@
 .dropdown li:hover {
   background-color: #00ED64;
 }
+
+@media (max-width: 768px) {
+  .navSection{
+    padding: 10px 20px;
+   
+    
+}
+}

@@ -27,6 +27,7 @@ const ProductCard = ({product}) => {
            <img src={product.img[0]} alt={product.name} className={styles.cardImg}/>
           </Link>          
           </div>
+          <div className={styles.cardDetails}>
           <div className={styles.cardContent}>
               <h2 className={styles.cardTitle}>{product.name}</h2>
               {/* <p className={styles.cardText}>{content}</p> */}
@@ -34,6 +35,7 @@ const ProductCard = ({product}) => {
           <div className={styles.cardButtonBox}>
               {product.price != 0 ? <h4 className={styles.cardPrice}>₹{product.price}</h4> : ''}
               {product.price != 0 ? <button onClick={handleAddToCart} className={styles.cardButton}>Add To Cart</button> : <button className={styles.cardButton}>Coming Soon</button>}
+          </div>
           </div>
       </div>
     )
