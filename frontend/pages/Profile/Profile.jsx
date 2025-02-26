@@ -48,7 +48,7 @@ const Profile = () => {
 
   const updateProfile = async () => {
     try {
-      const res = await axios.put("https://samvrikshatest.onrender.com/update-profile", profileData, {
+      const res = await axios.put("http://localhost:3000/update-profile", profileData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (res.data.success) {
@@ -63,7 +63,7 @@ const Profile = () => {
 
   const changePassword = async () => {
     try {
-      const res = await axios.put("https://samvrikshatest.onrender.com/change-password", passwordData, {
+      const res = await axios.put("http://localhost:3000/change-password", passwordData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (res.data.success){

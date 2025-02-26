@@ -14,7 +14,7 @@ const Orders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get("https://samvrikshatest.onrender.com/api/orders", {
+        const response = await axios.get("http://localhost:3000/api/orders", {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
         setOrders(response.data);
@@ -81,7 +81,7 @@ export default Orders;
 //   useEffect(() => {
 //     const fetchOrders = async () => {
 //       try {
-//         const response = await axios.get("https://samvrikshatest.onrender.com/api/orders", {
+//         const response = await axios.get("http://localhost:3000/api/orders", {
 //           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
 //         });
 //         setOrders(response.data);

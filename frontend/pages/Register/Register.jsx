@@ -26,7 +26,7 @@ const Register = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.post("https://samvrikshatest.onrender.com/api/register", formData);
+      const res = await axios.post("http://localhost:3000/api/register", formData);
       setMessage(res.data.message);
     } catch (err) {
       setMessage(err.response?.data?.message || "Registration failed");

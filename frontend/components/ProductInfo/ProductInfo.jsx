@@ -121,7 +121,7 @@ const ProductInfo = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch(`https://samvrikshatest.onrender.com/api/products/${slug}`);
+        const response = await fetch(`http://localhost:3000/api/products/${slug}`);
         if (!response.ok) {
           throw new Error('Product not found');
         }

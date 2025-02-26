@@ -160,12 +160,13 @@ const Products = () => {
   const [selectedType, setSelectedType] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [suggestions, setSuggestions] = useState([]);
+  const [showFilterBox, setShowFilterBox] = useState(false); // State to manage filter box visibility
 
   // Fetch products from backend on component mount
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("https://samvrikshatest.onrender.com/api/products");
+        const response = await axios.get("http://localhost:3000/api/products");
         setProducts(response.data);
       } catch (err) {
         setError("Failed to load products");
@@ -224,12 +225,12 @@ const Products = () => {
 
   const categoryDescription =
     category === 'farming'
-      ? 'Sustainable farming is all about growing food within city environments in a way that minimizes environmental impact and reduces carbon footprint. It incorporates methods like vertical farming, hydroponics, and rooftop gardens.'
+      ? 'Sustainable farming focuses on urban food production with minimal environmental impact and a reduced carbon footprint.'
       : category === 'decor'
       ? 'Products that help you decorate your home.'
       : category === 'gift'
-      ? 'Sustainable gifting emphasizes the use of natural, eco-friendly materials for products, avoiding plastics and harmful synthetics. Thoughtfully packaged in biodegradable or reusable materials, these gifts celebrate nature while reducing environmental impact.'
-      : 'Nature-based solutions are actions to protect, sustainably manage, and restore natural or modified ecosystems, that address societal challenges effectively and adaptively, simultaneously providing human well-being and biodiversity benefits.';
+      ? 'Thoughtfully packaged in biodegradable or reusable materials, these gifts celebrate nature while reducing environmental impact.'
+      : 'Nature-based solutions involve protecting and restoring ecosystems to benefit both human well-being and biodiversity.';
 
   return (
     <div className={styles.productsContainer}>
@@ -238,8 +239,17 @@ const Products = () => {
           <h2>{categoryTitle}</h2>
           <p>{categoryDescription}</p>
         </div>
-        <div className={styles.filterBox}>
-          <div>
+        {/* Toggle Button for Mobile View */}
+    <button
+      className={styles.toggleButton}
+      onClick={() => setShowFilterBox(!showFilterBox)}
+    >
+      {showFilterBox ? 'Hide Options' : 'View Options'}
+    </button>
+        <div className={`${styles.filterBox} ${
+        showFilterBox ? styles.showFilterBox : ''
+      }`}>
+          <div className={styles.searchBox}>
             <label htmlFor="search">Search:</label>
             <input
               id="search"
@@ -261,16 +271,15 @@ const Products = () => {
               </ul>
             )}
           </div>
-          <div>
+          {/* <div>
             <label htmlFor="type">Type:</label>
             <select id="type" value={selectedType} onChange={e => setSelectedType(e.target.value)}>
               <option value="">All Types</option>
               <option value="indoor">Indoor</option>
               <option value="outdoor">Outdoor</option>
-              {/* Add more types as needed */}
             </select>
-          </div>
-          <div>
+          </div> */}
+          <div className={styles.priceRange}>
             <label htmlFor="price">Price Range:</label>
             <input
               id="price"

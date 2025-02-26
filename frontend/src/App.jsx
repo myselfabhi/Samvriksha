@@ -86,7 +86,7 @@ function AppContent() {
     <div className='app'>
       <div className='navSection'>
         <div className='logo'>
-          <img src='/logo.PNG' width={150} height={36} alt="Logo" />
+          <img style={{cursor:'pointer'}} onClick={() => navigate('/')} src='/logo.PNG' width={150} height={36} alt="Logo" />
         </div>
         <div className='navItems'>
           <Navbar />

@@ -11,7 +11,7 @@ export const CartProvider = ({ children }) => {
   const token = localStorage.getItem("token");
 
   const axiosInstance = axios.create({
-    baseURL: "https://samvrikshatest.onrender.com",
+    baseURL: "http://localhost:3000",
     headers: {
       Authorization: token ? `Bearer ${token}` : "",
       "Content-Type": "application/json",

@@ -107,7 +107,7 @@ height: calc(100vh - 5vh - 20px);
   
   /* Product Section */
   .productSection {
-    flex: 4;
+    flex: 6;
     background-color: #f5f5f5;
     padding: 20px;
     display: flex;
@@ -117,6 +117,18 @@ height: calc(100vh - 5vh - 20px);
     width: 100%; /* Ensures it spans the width of the container */
     overflow-y: auto; /* Makes the product section scrollable */
      /* Ensures it spans the height of the container */
+  }
+
+  /* Toggle Button for Mobile View */
+  .toggleButton {
+    display: none; /* Hide by default */
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%; /* Match the width of the filter box */
   }
   
   
@@ -133,13 +145,19 @@ height: calc(100vh - 5vh - 20px);
       /* height: auto;  */
       gap: 20px;
       box-shadow: none; /* Remove shadow */
+      padding: 10px 20px;
     }
 
-    .filterBox{
+    /* .filterBox{
       display: flex;
       flex-direction: row;
-      /* flex-wrap: wrap; */
       gap: 10px;
+    } */
+    .searchBox{
+      flex: 1;
+    }
+    .priceRange{
+      flex: 1;
     }
 
     .suggestionsList{
@@ -150,5 +168,31 @@ height: calc(100vh - 5vh - 20px);
       /* flex: 6; */
       padding: 20px 0;
       justify-content: center;
+    }
+
+    .toggleButton {
+      display: block; /* Show the button */
+    }
+  
+    /* Hide the filter box by default in mobile view */
+    .filterBox {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      /* margin-top: 10px; */
+      overflow: hidden; /* Hide overflow during animation */
+      max-height: 0; /* Start with max-height 0 */
+      opacity: 0; /* Start with opacity 0 */
+      transition:
+        max-height 0.5s ease-in-out,
+        opacity 0.3s ease-in-out; /* Smooth transition for max-height and opacity */
+    }
+    
+  
+    /* Show the filter box when toggled */
+    .filterBox.showFilterBox {
+      display: flex;
+      max-height: 500px; /* Set a reasonable max-height for the content */
+  opacity: 1; /* Fade in the content */
     }
   }

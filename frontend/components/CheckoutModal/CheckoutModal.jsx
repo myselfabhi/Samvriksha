@@ -62,7 +62,7 @@ const CheckoutModal = ({ isOpen, onClose, onOrderCreated }) => {
   //     // localStorage.setItem("contactDetails", JSON.stringify(contactDetails));
 
   //     // Create order on backend
-  //     const orderResponse = await axios.post("https://samvrikshatest.onrender.com/api/orders", {}, {
+  //     const orderResponse = await axios.post("http://localhost:3000/api/orders", {}, {
   //       headers: { Authorization: `Bearer ${token}` },
   //     });
   //     const { order, razorpayOrder } = orderResponse.data;
@@ -78,7 +78,7 @@ const CheckoutModal = ({ isOpen, onClose, onOrderCreated }) => {
   //       handler: async function (response) {
   //         try {
   //           // Verify payment on backend
-  //           const verifyResponse = await axios.post("https://samvrikshatest.onrender.com/api/orders/verify-payment", {
+  //           const verifyResponse = await axios.post("http://localhost:3000/api/orders/verify-payment", {
   //             razorpay_payment_id: response.razorpay_payment_id,
   //             razorpay_order_id: response.razorpay_order_id,
   //             razorpay_signature: response.razorpay_signature,
@@ -119,7 +119,7 @@ const CheckoutModal = ({ isOpen, onClose, onOrderCreated }) => {
       localStorage.setItem("contactDetails", JSON.stringify(contactDetails));
   
       // Create order on backend
-      const orderResponse = await axios.post("https://samvrikshatest.onrender.com/api/orders", {}, {
+      const orderResponse = await axios.post("http://localhost:3000/api/orders", {}, {
         headers: { Authorization: `Bearer ${token}` },
       });
   
@@ -136,7 +136,7 @@ const CheckoutModal = ({ isOpen, onClose, onOrderCreated }) => {
           try {
             // Payment verification
             const verifyResponse = await axios.post(
-              "https://samvrikshatest.onrender.com/api/orders/verify-payment",
+              "http://localhost:3000/api/orders/verify-payment",
               {
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_order_id: response.razorpay_order_id,
@@ -161,7 +161,7 @@ const CheckoutModal = ({ isOpen, onClose, onOrderCreated }) => {
             console.log("Payment modal closed by user.");
       
             axios.post(
-              "https://samvrikshatest.onrender.com/api/orders/cancel",
+              "http://localhost:3000/api/orders/cancel",
               { razorpay_order_id: razorpayOrder.id },
               { headers: { Authorization: `Bearer ${token}` } }
             )
@@ -296,7 +296,7 @@ export default CheckoutModal;
 //         const totalWeight = cart.reduce((acc, item) => acc + (item.product.weight || 1), 0);
 
 //         const response = await axios.post(
-//           "https://samvrikshatest.onrender.com/api/shipping",
+//           "http://localhost:3000/api/shipping",
 //           { pincode: contactDetails.pincode, weight: totalWeight },
 //           { headers: { Authorization: `Bearer ${token}` } }
 //         );
@@ -327,7 +327,7 @@ export default CheckoutModal;
   
 //       // Create order on backend with shipping cost included
 //       const orderResponse = await axios.post(
-//         "https://samvrikshatest.onrender.com/api/orders",
+//         "http://localhost:3000/api/orders",
 //         { shippingAmount: shippingCost  },
 //         { headers: { Authorization: `Bearer ${token}` } }
 //       );
@@ -346,7 +346,7 @@ export default CheckoutModal;
 //           try {
 //             // Verify payment on backend
 //             const verifyResponse = await axios.post(
-//               "https://samvrikshatest.onrender.com/api/orders/verify-payment",
+//               "http://localhost:3000/api/orders/verify-payment",
 //               {
 //                 razorpay_payment_id: response.razorpay_payment_id,
 //                 razorpay_order_id: response.razorpay_order_id,
