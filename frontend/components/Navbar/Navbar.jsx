@@ -60,13 +60,13 @@ const Navbar = () => {
     return (
         <nav className={styles.navbar}>
             <div className={styles.menuIcon} onClick={() => setMenuOpen(!menuOpen)}>
-                {menuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+                {menuOpen ?  <FaTimes size={24} /> : <FaBars size={24} />}
             </div>
             <ul className={`${styles.navList} ${menuOpen ? styles.open : ''}`}>
                 <Link style={{textDecoration:'none'}} to={'/'} onClick={() => setMenuOpen(false)}><li>Home</li></Link>
                 <Link style={{textDecoration:'none'}} to={`/products/farming`} onClick={() => setMenuOpen(false)}><li>Sustainable Farming</li></Link>
-                <Link style={{textDecoration:'none'}} to={`/products/decor`} onClick={() => setMenuOpen(false)}><li>Sustainable Decor</li></Link>
-                <Link style={{textDecoration:'none'}} to={`/products/gift`} onClick={() => setMenuOpen(false)}><li>Sustainable Gifting</li></Link>
+                <Link style={{textDecoration:'none'}} to={`/products/decor`} onClick={() => setMenuOpen(false)}><li>Sustainable Decor & Gifting</li></Link>
+                {/* <Link style={{textDecoration:'none'}} to={`/products/gift`} onClick={() => setMenuOpen(false)}><li>Sustainable Gifting</li></Link> */}
                 <Link style={{textDecoration:'none'}} to={`/products/nbs`} onClick={() => setMenuOpen(false)}><li>Nature-Based Solutions</li></Link>
             </ul>
         </nav>

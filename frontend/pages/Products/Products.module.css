@@ -119,6 +119,7 @@ height: calc(100vh - 5vh - 20px);
      /* Ensures it spans the height of the container */
   }
 
+
   /* Toggle Button for Mobile View */
   .toggleButton {
     display: none; /* Hide by default */
@@ -130,6 +131,9 @@ height: calc(100vh - 5vh - 20px);
     cursor: pointer;
     width: 100%; /* Match the width of the filter box */
   }
+
+  
+  
   
   
 
@@ -148,17 +152,18 @@ height: calc(100vh - 5vh - 20px);
       padding: 10px 20px;
     }
 
-    /* .filterBox{
-      display: flex;
-      flex-direction: row;
-      gap: 10px;
-    } */
     .searchBox{
       flex: 1;
     }
     .priceRange{
       flex: 1;
     }
+
+    /* .filterBox{
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+    } */
 
     .suggestionsList{
       width: 90%;
@@ -170,6 +175,7 @@ height: calc(100vh - 5vh - 20px);
       justify-content: center;
     }
 
+    
     .toggleButton {
       display: block; /* Show the button */
     }
@@ -195,4 +201,21 @@ height: calc(100vh - 5vh - 20px);
       max-height: 500px; /* Set a reasonable max-height for the content */
   opacity: 1; /* Fade in the content */
     }
+
+
+    .catDes {
+      transition: opacity 0.5s ease, transform 0.5s ease, max-height 0.5s ease;
+      opacity: 1;
+      transform: translateY(0);
+      max-height:500px; /* Adjust as per content */
+      overflow: hidden;
+    }
+    
+    .catDes.hidden {
+      opacity: 0;
+      transform: translateY(-10px);
+      max-height: 0;
+      pointer-events: none;
+    }
+    
   }

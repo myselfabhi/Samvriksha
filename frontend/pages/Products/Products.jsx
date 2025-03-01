@@ -143,7 +143,7 @@
 // export default Products;
 
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import styles from './Products.module.css';
 import ProductCard from '../../components/ProductCard/ProductCard';
@@ -152,6 +152,9 @@ import Loader from '../../components/Loader/Loader';
 
 const Products = () => {
   const { category } = useParams();
+  const [hideDescription, setHideDescription] = useState(false);
+  const productSectionRef = useRef(null); // Reference for product section
+
 
   const [products, setProducts] = useState([]); // Store products from backend
   const [loading, setLoading] = useState(true); // Loading state
@@ -161,6 +164,7 @@ const Products = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [showFilterBox, setShowFilterBox] = useState(false); // State to manage filter box visibility
+
 
   // Fetch products from backend on component mount
   useEffect(() => {
@@ -182,6 +186,25 @@ const Products = () => {
     // Clear search term when navigating to a new category
     setSearchTerm('');
   }, [category]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (productSectionRef.current) {
+        setHideDescription(productSectionRef.current.scrollTop > 50);
+      }
+    };
+
+    const productSection = productSectionRef.current;
+    if (productSection) {
+      productSection.addEventListener("scroll", handleScroll);
+    }
+
+    return () => {
+      if (productSection) {
+        productSection.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, []);
 
   // Filter products based on category
   const filteredByCategory = products.filter(product => product.category.includes(category));
@@ -225,19 +248,19 @@ const Products = () => {
 
   const categoryDescription =
     category === 'farming'
-      ? 'Sustainable farming focuses on urban food production with minimal environmental impact and a reduced carbon footprint.'
+      ? 'Sustainable urban farming minimizes environmental impact and reduces carbon footprint through methods like vertical farming, hydroponics, and rooftop gardens.'
       : category === 'decor'
-      ? 'Products that help you decorate your home.'
+      ? 'Products that help you decorate your home while promoting sustainable gifting with eco-friendly materials and biodegradable or reusable packaging to celebrate nature and minimize environmental harm.'
       : category === 'gift'
-      ? 'Thoughtfully packaged in biodegradable or reusable materials, these gifts celebrate nature while reducing environmental impact.'
-      : 'Nature-based solutions involve protecting and restoring ecosystems to benefit both human well-being and biodiversity.';
+      ? 'Sustainable gifting focuses on eco-friendly, natural materials and thoughtful, biodegradable or reusable packaging to celebrate nature and minimize environmental harm.'
+      : 'Nature-based solutions protect, manage, and restore ecosystems to address societal challenges while enhancing human well-being and biodiversity.';
 
   return (
     <div className={styles.productsContainer}>
       <div className={styles.filterSection}>
         <div className={styles.infoBox}>
           <h2>{categoryTitle}</h2>
-          <p>{categoryDescription}</p>
+          {<p className={`${styles.catDes} ${hideDescription ? styles.hidden : ""}`}>{categoryDescription}</p>}
         </div>
         {/* Toggle Button for Mobile View */}
     <button
@@ -248,9 +271,9 @@ const Products = () => {
     </button>
         <div className={`${styles.filterBox} ${
         showFilterBox ? styles.showFilterBox : ''
-      }`}>
-          <div className={styles.searchBox}>
-            <label htmlFor="search">Search:</label>
+      }`}>        
+        <div className={styles.searchBox}>
+        <label htmlFor="search">Search:</label>
             <input
               id="search"
               type="text"
@@ -280,7 +303,7 @@ const Products = () => {
             </select>
           </div> */}
           <div className={styles.priceRange}>
-            <label htmlFor="price">Price Range:</label>
+          <label htmlFor="price">Price Range:</label>
             <input
               id="price"
               type="range"
@@ -296,7 +319,7 @@ const Products = () => {
         </div>
       </div>
 
-      <div className={styles.productSection}>
+      <div className={styles.productSection} ref={productSectionRef}>
         {loading ? (
           <Loader/>
           // <p style={{ textAlign: 'center' }}>Loading products...</p>

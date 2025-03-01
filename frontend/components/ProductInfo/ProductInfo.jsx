@@ -107,6 +107,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './ProductInfo.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCart } from '../../src/CartContext';
+import Loader from '../Loader/Loader';
 
 const ProductInfo = () => {
   const { slug } = useParams();
@@ -116,11 +117,13 @@ const ProductInfo = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [selectedColor, setSelectedColor] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [loading, setLoading] = useState(true);
 
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
+        
         const response = await fetch(`http://localhost:3000/api/products/${slug}`);
         if (!response.ok) {
           throw new Error('Product not found');
@@ -128,17 +131,20 @@ const ProductInfo = () => {
         const data = await response.json();
         setProduct(data);
         setSelectedColor(data.colors?.length ? data.colors[0] : null);
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching product:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchProduct();
   }, [slug]);
 
-  if (!product) {
-    return <div className={styles.error}>Product not found</div>;
-  }
+  // if (!product) {
+  //   return <div className={styles.error}>Product not found</div>;
+  // }
 
   const nextImage = () => {
     setCurrentImageIndex((prevIndex) =>
@@ -164,7 +170,9 @@ const ProductInfo = () => {
     }
   };
 
-
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className={styles.productInfoContainer}>
