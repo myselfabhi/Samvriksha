@@ -143,6 +143,205 @@
 // export default Products;
 
 
+// import React, { useEffect, useRef, useState } from 'react';
+// import axios from 'axios';
+// import styles from './Products.module.css';
+// import ProductCard from '../../components/ProductCard/ProductCard';
+// import { useParams } from 'react-router-dom';
+// import Loader from '../../components/Loader/Loader';
+
+// const Products = () => {
+//   const { category } = useParams();
+//   const [hideDescription, setHideDescription] = useState(false);
+//   const productSectionRef = useRef(null); // Reference for product section
+
+
+//   const [products, setProducts] = useState([]); // Store products from backend
+//   const [loading, setLoading] = useState(true); // Loading state
+//   const [error, setError] = useState(null); // Error state
+//   const [priceRange, setPriceRange] = useState([0, 20000]);
+//   const [selectedType, setSelectedType] = useState('');
+//   const [searchTerm, setSearchTerm] = useState('');
+//   const [suggestions, setSuggestions] = useState([]);
+//   const [showFilterBox, setShowFilterBox] = useState(false); // State to manage filter box visibility
+
+
+//   // Fetch products from backend on component mount
+//   useEffect(() => {
+//     const fetchProducts = async () => {
+//       try {
+//         const response = await axios.get("http://localhost:3000/api/products");
+//         setProducts(response.data);
+//       } catch (err) {
+//         setError("Failed to load products");
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchProducts();
+//   }, []);
+
+//   useEffect(() => {
+//     // Clear search term when navigating to a new category
+//     setSearchTerm('');
+//   }, [category]);
+
+//   useEffect(() => {
+//     const handleScroll = () => {
+//       if (productSectionRef.current) {
+//         setHideDescription(productSectionRef.current.scrollTop > 50);
+//       }
+//     };
+
+//     const productSection = productSectionRef.current;
+//     if (productSection) {
+//       productSection.addEventListener("scroll", handleScroll);
+//     }
+
+//     return () => {
+//       if (productSection) {
+//         productSection.removeEventListener("scroll", handleScroll);
+//       }
+//     };
+//   }, []);
+
+//   // Filter products based on category
+//   const filteredByCategory = products.filter(product => product.category.includes(category));
+
+//   // Additional filters
+//   const filteredProducts = filteredByCategory.filter(product => {
+//     const inPriceRange = product.price >= priceRange[0] && product.price <= priceRange[1];
+//     const matchesType = selectedType ? product.type.includes(selectedType) : true;
+//     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+//     return inPriceRange && matchesType && matchesSearch;
+//   });
+
+//   const handleSearchChange = (e) => {
+//     const value = e.target.value;
+//     setSearchTerm(value);
+
+//     // Generate suggestions based on search term
+//     if (value) {
+//       const matchedSuggestions = filteredByCategory.filter(product =>
+//         product.name.toLowerCase().includes(value.toLowerCase())
+//       );
+//       setSuggestions(matchedSuggestions);
+//     } else {
+//       setSuggestions([]);
+//     }
+//   };
+
+//   const handleSuggestionClick = (name) => {
+//     setSearchTerm(name);
+//     setSuggestions([]);
+//   };
+
+//   const categoryTitle =
+//     category === 'farming'
+//       ? 'Sustainable Farming'
+//       : category === 'decor'
+//       ? 'Sustainable Decor'
+//       : category === 'gift'
+//       ? 'Sustainable Gifting'
+//       : 'Nature-Based Solutions';
+
+//   const categoryDescription =
+//     category === 'farming'
+//       ? 'Sustainable urban farming minimizes environmental impact and reduces carbon footprint through methods like vertical farming, hydroponics, and rooftop gardens.'
+//       : category === 'decor'
+//       ? 'Products that help you decorate your home while promoting sustainable gifting with eco-friendly materials and biodegradable or reusable packaging to celebrate nature and minimize environmental harm.'
+//       : category === 'gift'
+//       ? 'Sustainable gifting focuses on eco-friendly, natural materials and thoughtful, biodegradable or reusable packaging to celebrate nature and minimize environmental harm.'
+//       : 'Nature-based solutions protect, manage, and restore ecosystems to address societal challenges while enhancing human well-being and biodiversity.';
+
+//   return (
+//     <div className={styles.productsContainer}>
+//       <div className={styles.filterSection}>
+//         <div className={styles.infoBox}>
+//           <h2>{categoryTitle}</h2>
+//           {<p className={`${styles.catDes} ${hideDescription ? styles.hidden : ""}`}>{categoryDescription}</p>}
+//         </div>
+//         {/* Toggle Button for Mobile View */}
+//     <button
+//       className={styles.toggleButton}
+//       onClick={() => setShowFilterBox(!showFilterBox)}
+//     >
+//       {showFilterBox ? 'Hide Options' : 'View Options'}
+//     </button>
+//         <div className={`${styles.filterBox} ${
+//         showFilterBox ? styles.showFilterBox : ''
+//       }`}>        
+//         <div className={styles.searchBox}>
+//         <label htmlFor="search">Search:</label>
+//             <input
+//               id="search"
+//               type="text"
+//               value={searchTerm}
+//               onChange={handleSearchChange}
+//               placeholder="Search products..."
+//             />
+//             {suggestions.length > 0 && (
+//               <ul className={styles.suggestionsList}>
+//                 {suggestions.map((suggestion) => (
+//                   <li
+//                     key={suggestion.id}
+//                     onClick={() => handleSuggestionClick(suggestion.name)}
+//                   >
+//                     {suggestion.name}
+//                   </li>
+//                 ))}
+//               </ul>
+//             )}
+//           </div>
+//           {/* <div>
+//             <label htmlFor="type">Type:</label>
+//             <select id="type" value={selectedType} onChange={e => setSelectedType(e.target.value)}>
+//               <option value="">All Types</option>
+//               <option value="indoor">Indoor</option>
+//               <option value="outdoor">Outdoor</option>
+//             </select>
+//           </div> */}
+//           <div className={styles.priceRange}>
+//           <label htmlFor="price">Price Range:</label>
+//             <input
+//               id="price"
+//               type="range"
+//               min="0"
+//               max="20000"
+//               value={priceRange[1]}
+//               onChange={e => setPriceRange([0, +e.target.value])}
+//             />
+//             <span style={{ fontFamily: 'Franklin Gothic Medium' }}>
+//               ₹{priceRange[0]} - ₹{priceRange[1]}
+//             </span>
+//           </div>
+//         </div>
+//       </div>
+
+//       <div className={styles.productSection} ref={productSectionRef}>
+//         {loading ? (
+//           <Loader/>
+//           // <p style={{ textAlign: 'center' }}>Loading products...</p>
+//         ) : error ? (
+//           <p style={{ textAlign: 'center', color: 'red' }}>{error}</p>
+//         ) : filteredProducts.length > 0 ? (
+//           filteredProducts.map(product => (
+//             <ProductCard key={product._id} product={product} />
+//           ))
+//         ) : (
+//           <p style={{ display: 'flex', flex: '1', justifyContent: 'center', alignItems: 'center' }}>
+//             No products available for this category.
+//           </p>
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Products;
+
+
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import styles from './Products.module.css';
@@ -155,7 +354,6 @@ const Products = () => {
   const [hideDescription, setHideDescription] = useState(false);
   const productSectionRef = useRef(null); // Reference for product section
 
-
   const [products, setProducts] = useState([]); // Store products from backend
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(null); // Error state
@@ -165,15 +363,14 @@ const Products = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [showFilterBox, setShowFilterBox] = useState(false); // State to manage filter box visibility
 
-
   // Fetch products from backend on component mount
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/products");
+        const response = await axios.get('http://localhost:3000/api/products');
         setProducts(response.data);
       } catch (err) {
-        setError("Failed to load products");
+        setError('Failed to load products');
       } finally {
         setLoading(false);
       }
@@ -196,24 +393,48 @@ const Products = () => {
 
     const productSection = productSectionRef.current;
     if (productSection) {
-      productSection.addEventListener("scroll", handleScroll);
+      productSection.addEventListener('scroll', handleScroll);
     }
 
     return () => {
       if (productSection) {
-        productSection.removeEventListener("scroll", handleScroll);
+        productSection.removeEventListener('scroll', handleScroll);
       }
     };
   }, []);
 
   // Filter products based on category
-  const filteredByCategory = products.filter(product => product.category.includes(category));
+  const filteredByCategory = products.filter((product) =>
+    product.category.includes(category)
+  );
 
   // Additional filters
-  const filteredProducts = filteredByCategory.filter(product => {
-    const inPriceRange = product.price >= priceRange[0] && product.price <= priceRange[1];
+  const filteredProducts = filteredByCategory.filter((product) => {
+    // Calculate the minimum and maximum price for the product based on its variants and sizes
+    const minPrice = product.variants.reduce((min, variant) => {
+      const variantMin = variant.sizes.reduce((minSize, size) => {
+        return size.price < minSize ? size.price : minSize;
+      }, Infinity);
+      return variantMin < min ? variantMin : min;
+    }, Infinity);
+
+    const maxPrice = product.variants.reduce((max, variant) => {
+      const variantMax = variant.sizes.reduce((maxSize, size) => {
+        return size.price > maxSize ? size.price : maxSize;
+      }, 0);
+      return variantMax > max ? variantMax : max;
+    }, 0);
+
+    // Check if the product's price range falls within the selected price range
+    const inPriceRange =
+      (minPrice >= priceRange[0] && minPrice <= priceRange[1]) ||
+      (maxPrice >= priceRange[0] && maxPrice <= priceRange[1]);
+
     const matchesType = selectedType ? product.type.includes(selectedType) : true;
-    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = product.name
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+
     return inPriceRange && matchesType && matchesSearch;
   });
 
@@ -223,7 +444,7 @@ const Products = () => {
 
     // Generate suggestions based on search term
     if (value) {
-      const matchedSuggestions = filteredByCategory.filter(product =>
+      const matchedSuggestions = filteredByCategory.filter((product) =>
         product.name.toLowerCase().includes(value.toLowerCase())
       );
       setSuggestions(matchedSuggestions);
@@ -241,7 +462,7 @@ const Products = () => {
     category === 'farming'
       ? 'Sustainable Farming'
       : category === 'decor'
-      ? 'Sustainable Decor'
+      ? 'Sustainable Decor & Gifting'
       : category === 'gift'
       ? 'Sustainable Gifting'
       : 'Nature-Based Solutions';
@@ -260,20 +481,26 @@ const Products = () => {
       <div className={styles.filterSection}>
         <div className={styles.infoBox}>
           <h2>{categoryTitle}</h2>
-          {<p className={`${styles.catDes} ${hideDescription ? styles.hidden : ""}`}>{categoryDescription}</p>}
+          {
+            <p className={`${styles.catDes} ${hideDescription ? styles.hidden : ''}`}>
+              {categoryDescription}
+            </p>
+          }
         </div>
         {/* Toggle Button for Mobile View */}
-    <button
-      className={styles.toggleButton}
-      onClick={() => setShowFilterBox(!showFilterBox)}
-    >
-      {showFilterBox ? 'Hide Options' : 'View Options'}
-    </button>
-        <div className={`${styles.filterBox} ${
-        showFilterBox ? styles.showFilterBox : ''
-      }`}>        
-        <div className={styles.searchBox}>
-        <label htmlFor="search">Search:</label>
+        <button
+          className={styles.toggleButton}
+          onClick={() => setShowFilterBox(!showFilterBox)}
+        >
+          {showFilterBox ? 'Hide Options' : 'View Options'}
+        </button>
+        <div
+          className={`${styles.filterBox} ${
+            showFilterBox ? styles.showFilterBox : ''
+          }`}
+        >
+          <div className={styles.searchBox}>
+            <label htmlFor="search">Search:</label>
             <input
               id="search"
               type="text"
@@ -294,23 +521,15 @@ const Products = () => {
               </ul>
             )}
           </div>
-          {/* <div>
-            <label htmlFor="type">Type:</label>
-            <select id="type" value={selectedType} onChange={e => setSelectedType(e.target.value)}>
-              <option value="">All Types</option>
-              <option value="indoor">Indoor</option>
-              <option value="outdoor">Outdoor</option>
-            </select>
-          </div> */}
           <div className={styles.priceRange}>
-          <label htmlFor="price">Price Range:</label>
+            <label htmlFor="price">Price Range:</label>
             <input
               id="price"
               type="range"
               min="0"
               max="20000"
               value={priceRange[1]}
-              onChange={e => setPriceRange([0, +e.target.value])}
+              onChange={(e) => setPriceRange([0, +e.target.value])}
             />
             <span style={{ fontFamily: 'Franklin Gothic Medium' }}>
               ₹{priceRange[0]} - ₹{priceRange[1]}
@@ -321,16 +540,22 @@ const Products = () => {
 
       <div className={styles.productSection} ref={productSectionRef}>
         {loading ? (
-          <Loader/>
-          // <p style={{ textAlign: 'center' }}>Loading products...</p>
+          <Loader />
         ) : error ? (
           <p style={{ textAlign: 'center', color: 'red' }}>{error}</p>
         ) : filteredProducts.length > 0 ? (
-          filteredProducts.map(product => (
+          filteredProducts.map((product) => (
             <ProductCard key={product._id} product={product} />
           ))
         ) : (
-          <p style={{ display: 'flex', flex: '1', justifyContent: 'center', alignItems: 'center' }}>
+          <p
+            style={{
+              display: 'flex',
+              flex: '1',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
             No products available for this category.
           </p>
         )}

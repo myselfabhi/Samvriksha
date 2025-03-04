@@ -74,12 +74,15 @@
 @media (max-width: 768px) {
   .navSection{
     padding: 10px 20px;
-    /* gap: 20px; */
+    gap: 10px;
    
     
 }
-/* .navItems{
-  
+.navItems {
   justify-content: flex-end;
-} */
+}
+
+.btnGroup {
+  gap: 10px;
+}
 }

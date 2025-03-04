@@ -47,8 +47,10 @@ const CheckoutModal = ({ isOpen, onClose, onOrderCreated }) => {
     };
   }, []);
   
+  const totalAmount = cart?.reduce((acc, item) => acc + item.price * item.quantity, 0) || 0;
 
-  const totalAmount = cart.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
+
+  // const totalAmount = cart.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
 
   // const handlePayment = async () => {
   //   try {
