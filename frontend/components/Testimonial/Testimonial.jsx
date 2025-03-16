@@ -73,21 +73,33 @@ import { FaChevronRight } from "react-icons/fa";
 const testimonials = [
   {
     feedback: "I love my new plants! They arrived in perfect condition and have added so much life to my home. Thank you!",
-    name: "Sarah J.",
+    name: "Prateek",
     location: "Delhi",
-    image: "./userImage.jpg",
+    image: "/prateek.jpeg",
   },
   {
     feedback: "The plants were so well-packed, and the quality is amazing. Definitely ordering again!",
-    name: "Rahul S.",
+    name: "Shikha Dharwari",
     location: "Mumbai",
-    image: "https://imgs.search.brave.com/8bpuWMBJVZ9iDzRpbMkSYvQtDxeSkxw7zvr5su0y6eo/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTMx/Njk0NDM3Ni9waG90/by93b21hbi10YWtl/LWNhcmUtb2YtY3lw/cmVzcy1wbGFudHMu/anBnP3M9NjEyeDYx/MiZ3PTAmaz0yMCZj/PXdiUnl3U05Yd05W/YlRlYjBMVVo0Zk5K/ZEVwRjF4d2c5am1K/ZkV0MU1qaWM9",
+    image: "/shikha.jpeg",
   },
   {
-    feedback: "Great variety and excellent service. My home looks vibrant now. Thank you so much!",
-    name: "Priya K.",
+    feedback: "Great variety and excellent quality. My home looks vibrant now. Thank you so much!",
+    name: "Renuka Jain",
     location: "Bangalore",
-    image: "https://imgs.search.brave.com/no_mUQXYY0P88gKQGEZ1v5zkA4kA5M2q3GMCkEVYjXo/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTMw/NTQ0NzY4Ny9waG90/by90YWtpbmctY2Fy/ZS1vZi1teS1wbGFu/dHMuanBnP3M9NjEy/eDYxMiZ3PTAmaz0y/MCZjPWxRT2tUdy04/OC1STEIybm41Vmhu/c01QaXB1QWVteHc0/S1dhSVBoSmFBMzQ9",
+    image: "/renuka.jpeg",
+  },
+  {
+    feedback: "This setup helps me teach my fellow classmates and school about sustainability and water conservation.",
+    name: "Evana",
+    location: "Bangalore",
+    image: "/evana.jpeg",
+  },
+  {
+    feedback: "Farming products of samvrikha have allowed my child to eat healthy as the produce is pesticide-free.",
+    name: "Neha Pareikh",
+    location: "Bangalore",
+    image: "/neha.jpeg",
   },
 ];
 
@@ -126,9 +138,9 @@ const Testimonial = () => {
             <div className={styles.feedbackAuthorDetails}>
               <img src={testimonial.image} alt={testimonial.name} />
               <h3 className={styles.feedbackAuthor}>- {testimonial.name}</h3>
-              <h4 className={styles.feedbackAuthorLocation}>
+              {/* <h4 className={styles.feedbackAuthorLocation}>
                 {testimonial.location}
-              </h4>
+              </h4> */}
             </div>
           </div>
         ))}

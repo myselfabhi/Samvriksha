@@ -174,8 +174,8 @@
   }
   
   .feedbackAuthorDetails img {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 10px;
@@ -194,8 +194,9 @@
 
   @media (max-width: 768px) {
     .carouselButton{
-      width: 35px;
-      height: 35px;
+      width: 25px;
+      height: 25px;
+      font-size: small;
     }
     .feedbackText {
       font-size: 1rem;

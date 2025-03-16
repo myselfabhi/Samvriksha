@@ -14,6 +14,7 @@ import { useAuth } from '../../src/AuthContext';
 import { useCart } from '../../src/CartContext';
 import WhatsAppBtn from '../../components/WhatsAppBtn/WhatsAppBtn';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -22,6 +23,7 @@ import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
 const Home = () => {
   const {user} = useAuth()
   const {fetchCart, cart} =  useCart()
+  const navigate = useNavigate()
 
   
   return (
@@ -31,7 +33,7 @@ const Home = () => {
           <div className={styles.heroContent}>
             <h1 className={styles.heroTitle}>Discover Your Perfect <span className={styles.heroTitleSpan}>Plant for Every</span> Occasion</h1>
             <p className={styles.heroText}>Welcome to your ultimate plant destination! Explore our diverse collection of plants tailored for gifting, home decor, and indoor living, including low-light varieties that thrive without sunlight.</p>
-            <button className={styles.heroButton}>Shop Now</button>
+            <button onClick={() => navigate('/products/farming')} className={styles.heroButton}>Shop Now</button>
           </div>
         </div>
         <div className={styles.discoverBox}>
