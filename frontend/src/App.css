@@ -80,9 +80,14 @@
 }
 .navItems {
   justify-content: flex-end;
+  position: absolute;
+  right: 20px;
 }
 
 .btnGroup {
   gap: 10px;
+  margin-right: 35px;
+  flex-direction: row-reverse;
+  justify-content: end;
 }
 }

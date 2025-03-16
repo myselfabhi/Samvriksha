@@ -13,10 +13,10 @@ const Footer = () => {
       <div className={styles.footerLogo}>
         <img src='./logo.PNG' alt='logo' className={styles.blendedLogo} />
       </div>
-        <div className={styles.companyAddress}>
+        {/* <div className={styles.companyAddress}>
           <h3>Address: </h3>
           <p>1234 Green Street, Delhi, India</p>
-        </div>
+        </div> */}
         <div className={styles.companyContact}>
           <h3>Contact Us: </h3>
           <p>Phone: +91-8130322828</p>
@@ -25,15 +25,15 @@ const Footer = () => {
         <div className={styles.footerSocials}>
           <h3>Follow Us:</h3>
           <div className={styles.socialIcons}>
-          <div>
+          {/* <div>
             <FaFacebookSquare />
-          </div>
+          </div> */}
           <div>
-            <FaInstagram />
+            <a style={{color:'white'}} href='https://www.instagram.com/samvriksha_sustainability?igsh=MTJ4bW9yZHVrZnlweg=='><FaInstagram /></a> 
           </div>
-          <div>
+          {/* <div>
             <FaXTwitter />
-          </div>
+          </div> */}
           </div>
           </div>
       </div>

@@ -48,25 +48,17 @@
     cursor: pointer;
 }
 .discoverBox{
-    display: flex;
-    flex-direction: column;
+    /* display: flex;
+    flex-direction: column; */
     background-image: url('/exploreBg2.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    
-    /* flex-direction: row; */
-    /* flex-wrap: wrap; */
-    /* gap: 60px; */
-    /* justify-content: center; */
-    /* align-items: center; */
     padding: 60px;
     background-color: #ffffff;
-    min-height: 70vh;
+    min-height: fit-content;
 }
 .discoverTitle{
-    /* display: flex;
-    flex-direction: column; */
     font-size: 3rem;
     font-weight: 700;
     color: black;
@@ -160,7 +152,7 @@
   
   @media (max-width: 768px) {
     .heroBox{
-        padding: 20px;
+        padding: 0 20px;
         height: calc(100vh - 5vh - 20px);
     }
     .infoBox {

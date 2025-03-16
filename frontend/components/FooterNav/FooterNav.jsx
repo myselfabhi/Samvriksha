@@ -8,14 +8,14 @@ const FooterNav = () => {
     return (
       <div className={styles.navbar}>
           <ul>
-              <li onClick={() => navigate('/')}>About Us</li>
+              {/* <li onClick={() => navigate('/')}>About Us</li> */}
               {/* <li onClick={() => navigate('/')}>Contact Us</li> */}
               {/* <li><span>Sustainable Farming</span> </li>
               <li><span>Sustainable Decor</span></li>
               <li><span>Sustainable Gifting</span></li>
               <li><span>Nature-Based Solutions</span></li> */}<Link style={{textDecoration:'none'}} to={`/products/${'farming'}`}><li><span>Sustainable Farming</span></li></Link>
-            <Link style={{textDecoration:'none'}} to={`/products/${'decor'}`}><li><span>Sustainable Decor</span></li></Link>
-            <Link style={{textDecoration:'none'}} to={`/products/${'gift'}`}><li><span>Sustainable Gifting</span></li></Link>
+            <Link style={{textDecoration:'none'}} to={`/products/${'decor'}`}><li><span>Sustainable Decor & Gifting</span></li></Link>
+            {/* <Link style={{textDecoration:'none'}} to={`/products/${'gift'}`}><li><span>Sustainable Gifting</span></li></Link> */}
             <Link style={{textDecoration:'none'}} to={`/products/${'nbs'}`}><li><span>Nature-Based Solutions</span></li></Link>
           </ul>
       </div>

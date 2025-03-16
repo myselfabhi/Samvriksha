@@ -13,6 +13,7 @@ import Footer from '../../components/Footer/Footer';
 import { useAuth } from '../../src/AuthContext';
 import { useCart } from '../../src/CartContext';
 import WhatsAppBtn from '../../components/WhatsAppBtn/WhatsAppBtn';
+import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
 
 
 
@@ -35,12 +36,13 @@ const Home = () => {
         </div>
         <div className={styles.discoverBox}>
           <h2 className={styles.discoverTitle}>EXPLORE</h2> 
-          <div className={styles.cardContainer}>
+          {/* <div className={styles.cardContainer}>
             <Card img={products[0].img[0]} name={products[0].name} desc={products[0].description} price={products[0].price} slug={products[0].slug} colors={products[0].colors}/>
             <Card img={products[1].img[0]} name={products[1].name} desc={products[1].description} price={products[1].price} slug={products[1].slug} colors={products[1].colors}/>
             <Card img={products[2].img[0]} name={products[2].name} desc={products[2].description} price={products[2].price} slug={products[2].slug} colors={products[2].colors}/>
             <Card img={products[3].img[0]} name={products[3].name} desc={products[3].description} price={products[3].price} slug={products[3].slug} colors={products[3].colors}/>
-          </div>
+          </div> */}
+          <ProductCarousel products={products}/>
         </div>
         <div className={styles.infoBox}>
           <div className={styles.infoContent}>
