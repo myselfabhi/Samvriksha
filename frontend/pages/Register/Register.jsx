@@ -105,7 +105,9 @@ const Register = () => {
           </button>
         </form>
         <div className={styles.formFooter}>
-          <p>Already have an account? <a href="/login">Login</a></p>
+        <>Already have an account? <a href="/login">Login</a></>
+          <br />
+          <a href="/terms-and-conditions">Terms & Conditions</a>
         </div>
       </div>
     </div>

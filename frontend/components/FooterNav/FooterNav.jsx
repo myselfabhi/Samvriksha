@@ -17,6 +17,7 @@ const FooterNav = () => {
             <Link style={{textDecoration:'none'}} to={`/products/${'decor'}`}><li><span>Sustainable Decor & Gifting</span></li></Link>
             {/* <Link style={{textDecoration:'none'}} to={`/products/${'gift'}`}><li><span>Sustainable Gifting</span></li></Link> */}
             <Link style={{textDecoration:'none'}} to={`/products/${'nbs'}`}><li><span>Nature-Based Solutions</span></li></Link>
+            <Link style={{textDecoration:'none'}} to="/terms-and-conditions"><li><span>Terms & Conditions</span></li></Link>
           </ul>
       </div>
     )
