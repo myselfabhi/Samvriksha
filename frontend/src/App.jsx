@@ -69,6 +69,7 @@ import Register from '../pages/Register/Register';
 import Profile from '../pages/Profile/Profile';
 import Orders from '../pages/Orders/Orders';
 import TermsAndConditions from '../pages/TermsAndConditions/TermsAndConditions';
+import Contact from '../pages/Contact/Contact';
 
 
 
@@ -142,6 +143,7 @@ function AppContent() {
         <Route path='/productInfo/:slug' element={<ProductInfo />} />
         <Route path='/cart' element={<Cart />} />
         <Route path='/payment' element={<Payment />} />
+        <Route path='/contact' element={<Contact />} />
         <Route path='/terms-and-conditions' element={<TermsAndConditions />} />
       </Routes>
     </div>

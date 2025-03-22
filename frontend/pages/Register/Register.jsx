@@ -26,7 +26,7 @@ const Register = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:3000/api/register", formData);
+      const res = await axios.post("https://samvrikshatest.onrender.com/api/register", formData);
       setMessage(res.data.message);
     } catch (err) {
       setMessage(err.response?.data?.message || "Registration failed");
@@ -105,9 +105,9 @@ const Register = () => {
           </button>
         </form>
         <div className={styles.formFooter}>
-        <>Already have an account? <a href="/login">Login</a></>
+          <>Already have an account? <a href="/login">Login</a></>
           <br />
-          <a href="/terms-and-conditions">Terms & Conditions</a>
+          <a href="/terms-and-conditions">Terms & Policies</a>
         </div>
       </div>
     </div>

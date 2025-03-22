@@ -30,6 +30,26 @@
     color: #333;
     font-family: 'Inter', sans-serif; /* Professional Font */
 }
+.toc {
+    margin: 20px 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  .toc li {
+    margin-bottom: 8px;
+  }
+  
+  .toc a {
+    color: green;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .toc a:hover {
+    color: darkgreen;
+  }
+  
 
 .disclaimer{
     font-family: 'Inter', sans-serif; /* Professional Font */

@@ -59,7 +59,7 @@ const Login = () => {
         <div className={styles.formFooter}>
           Don't have an account? <a href="/register">Register</a>
           <br />
-          <a href="/terms-and-conditions">Terms & Conditions</a>
+          <a href="/terms-and-conditions">Terms & Policies</a>
         </div>
       </div>
     </div>

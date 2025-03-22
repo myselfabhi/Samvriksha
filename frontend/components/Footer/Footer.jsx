@@ -19,8 +19,8 @@ const Footer = () => {
         </div> */}
         <div className={styles.companyContact}>
           <h3>Contact Us: </h3>
-          <p>Phone: +91-8130322828</p>
-          <p>Email: samvriksha@gmail.com</p>
+          <p style={{fontFamily: 'Inter, sans-serif'}}>Phone: +91-8130322828</p>
+          <p style={{fontFamily: 'Inter, sans-serif'}}>Email: samvriksha@gmail.com</p>
         </div>
         <div className={styles.footerSocials}>
           <h3>Follow Us:</h3>
@@ -29,7 +29,7 @@ const Footer = () => {
             <FaFacebookSquare />
           </div> */}
           <div>
-            <a style={{color:'white'}} href='https://www.instagram.com/samvriksha_sustainability?igsh=MTJ4bW9yZHVrZnlweg=='><FaInstagram /></a> 
+           <a style={{color:'white'}} href='https://www.instagram.com/samvriksha_sustainability?igsh=MTJ4bW9yZHVrZnlweg=='><FaInstagram /></a>
           </div>
           {/* <div>
             <FaXTwitter />
@@ -42,7 +42,7 @@ const Footer = () => {
         </div>
       </div>
       <div className={styles.footerBottom}>
-        <p>&copy; {new Date().getFullYear()} Samvriksha. All rights reserved.</p>
+        <p style={{fontFamily: 'Inter, sans-serif'}}>&copy; {new Date().getFullYear()} Samvriksha. All rights reserved.</p>
       </div>
         
           
